@@ -1,0 +1,155 @@
+<?xml version="1.0"?>
+  <yandex>
+    <logger>
+      <level><%= @log_level %></level>
+      <log><%= @log_file %></log>
+      <errorlog><%= @errorlog_file %></errorlog>
+      <size><%= @log_rotate_size %></size>
+      <count><%= @log_rotate_count %></count>
+    </logger>
+    <display_name><%= @display_name %></display_name>
+    <http_port><%= @http_port %></http_port>
+    <tcp_port><%= @tcp_port %></tcp_port>
+<%- if @https_port -%>
+    <https_port><%= @https_port %></https_port>
+<%- end -%>
+<%- if @tcp_secure_port -%>
+    <tcp_secure_port><%= @tcp_secure_port %></tcp_secure_port>
+<%- end -%>
+    <openSSL>
+      <server>
+        <certificateFile><%= @certificate_file %></certificateFile>
+        <privateKeyFile><%= @private_key_file %></privateKeyFile>
+        <dhParamsFile><%= @dh_params_file %></dhParamsFile>
+        <verificationMode><%= @verification_mode %></verificationMode>
+        <loadDefaultCAFile><%= @load_default_ca_file.to_s %></loadDefaultCAFile>
+        <cacheSessions><%= @cache_sessions.to_s %></cacheSessions>
+        <disableProtocols><%= @disable_protocols.join(',') %></disableProtocols>
+        <preferServerCiphers><%= @prefer_server_ciphers.to_s %></preferServerCiphers>
+      </server>
+      <client>
+        <loadDefaultCAFile><%= @load_default_ca_file.to_s %></loadDefaultCAFile>
+        <cacheSessions><%= @cache_sessions.to_s %></cacheSessions>
+        <disableProtocols><%= @disable_protocols.join(',') %></disableProtocols>
+        <preferServerCiphers><%= @prefer_server_ciphers.to_s %></preferServerCiphers>
+<%- if @allow_self_signed_client -%>
+        <verificationMode>none</verificationMode>
+        <invalidCertificateHandler>
+            <name>AcceptCertificateHandler</name>
+        </invalidCertificateHandler>
+<%- else -%>
+        <invalidCertificateHandler>
+            <name>RejectCertificateHandler</name>
+        </invalidCertificateHandler>
+<%- end -%>
+    </client>
+  </openSSL>
+  <interserver_http_port><%= @interserver_http_port %></interserver_http_port>
+<%- if @interserver_http_host -%>
+  <interserver_http_host><%= @interserver_http_host %></interserver_http_host>
+<%- end -%>
+<%- @listen_hosts.each do |listen_host| -%>
+  <listen_host><%= listen_host %></listen_host>
+<%- end -%>
+  <max_connections><%= @max_connections %></max_connections>
+  <keep_alive_timeout><%= @keep_alive_timeout %></keep_alive_timeout>
+  <max_concurrent_queries><%= @max_concurrent_queries %></max_concurrent_queries>
+  <uncompressed_cache_size><%= @uncompressed_cache_size %></uncompressed_cache_size>
+  <path><%= @data_path %>/</path>
+  <tmp_path><%= @tmp_path %>/</tmp_path>
+  <user_files_path><%= @user_files_path %>/</user_files_path>
+  <users_config>users.xml</users_config>
+  <default_profile>default</default_profile>
+  <default_database>default</default_database>
+<%- if @timezone -%>
+  <timezone><%= @timezone %></timezone>
+<%- end -%>
+  <umask><%= @umask %></umask> 
+  <remote_servers>
+<%- @remotes.each_pair do |remote, shards| -%>
+    <<%= remote %>>
+  <%- shards.each do |shard| -%>
+      <shard>
+    <%- if shard.include?('wieght') -%>
+        <wieght><%= shard['wieght'] %></wieght>
+    <%- end -%>
+    <%- if shard.fetch('internal_replication', false) -%>
+		<internal_replication>true</internal_replication>
+    <%- end -%>
+    <%- shard['replicas'].each do |replica| -%>
+        <replica>
+          <host><%= replica['host'] %></host>
+          <port><%= replica['port'] %></port>
+      <%- if replica.fetch('secure', false) -%>
+		  <secure>1</secure>
+      <%- end -%>
+      <%- if replica.include?('user') -%>
+          <user><%= @user %></user>
+      <%- end -%>
+      <%- if replica.include?('password') -%>
+          <password><%= @password %></password>
+      <%- end -%>
+        </replica>
+    <%- end -%>
+      </shard>
+  <%- end -%>
+    </<%= remote %>>
+<%- end -%>
+  </remote_servers>
+  <zookeeper incl="zookeeper-servers" optional="true" />
+  <macros incl="macros" optional="true" />
+  <builtin_dictionaries_reload_interval><%= @builtin_dictionaries_reload_interval %></builtin_dictionaries_reload_interval>
+  <max_session_timeout><%= @max_session_timeout %></max_session_timeout>
+  <default_session_timeout><%= @default_session_timeout %></default_session_timeout>
+  <query_log>
+    <database><%=@query_log_db %></database>
+    <table><%=@query_log_table %></table>
+    <partition_by><%= @query_log_partition_by %></partition_by>
+    <flush_interval_milliseconds><%= @query_log_flush_interval %></flush_interval_milliseconds>
+  </query_log>
+<%- if @part_log_enable -%>
+  <part_log>
+    <database><%= @part_log_db %></database>
+    <table><%= @part_log_table %></table>
+    <flush_interval_milliseconds><%= @part_log_flush_interval %></flush_interval_milliseconds>
+  </part_log>
+<%- end -%>
+<%- if @path_to_regions_hierarchy_file -%>
+    <path_to_regions_hierarchy_file><%= @path_to_regions_hierarchy_file %></path_to_regions_hierarchy_file>
+<%- end -%>
+<%- if @path_to_regions_names_files -%>
+    <path_to_regions_names_files><%= @path_to_regions_names_files %></path_to_regions_names_files>
+<%- end -%>
+    <dictionaries_config><%= @dictionaries_config %></dictionaries_config>
+  <compression>
+<%- if @compression_enable -%>
+	<case>
+      <min_part_size><%= @compression_min_part_size %></min_part_size> 
+      <min_part_size_ratio><%= @compression_min_part_size_ratio %></min_part_size_ratio>
+      <method><%= @compression_method %></method>
+      <level><%= @compression_level %></level>
+	</case>
+<%- end -%>
+  </compression>
+<%- if @distributed_ddl_enable -%>
+  <distributed_ddl>
+    <path><%= @distributed_ddl_path %></path>
+  <%- if @distributed_ddl_profile -%>
+    <profile><%= @distributed_ddl_profile %></profile>
+  <%- end -%>
+  </distributed_ddl>
+<%- end -%>
+<%- if @max_suspicious_broken_parts -%>
+  <merge_tree>
+    <max_suspicious_broken_parts><%= @max_suspicious_broken_parts %></max_suspicious_broken_parts>
+  </merge_tree>
+<%- end -%>
+<%- if @max_table_size_to_drop -%>
+  <max_table_size_to_drop><%= @max_table_size_to_drop %></max_table_size_to_drop>
+<%- end -%>
+  <format_schema_path><%= @format_schema_path %>/</format_schema_path>
+<%- if @disable_internal_dns_cache -%>
+  <disable_internal_dns_cache>1</disable_internal_dns_cache>
+<%- end -%>
+</yandex>
+

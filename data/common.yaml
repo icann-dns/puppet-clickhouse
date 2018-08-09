@@ -1,0 +1,79 @@
+clickhouse::conf_dir: /etc/clickhouse-server
+clickhouse::package: clickhouse-server
+clickhouse::service: clickhouse-server
+clickhouse::password_sha256: ~
+clickhouse::max_memory_usage: 10000000000
+clickhouse::use_uncompressed_cache: false
+clickhouse::load_balancing: random
+clickhouse::log_level: trace
+clickhouse::log_file: /var/log/clickhouse-server/clickhouse-server.log
+clickhouse::errorlog_file: /var/log/clickhouse-server/clickhouse-server.err.log
+clickhouse::log_rotate_size: 100M
+clickhouse::log_rotate_count: 10
+clickhouse::display_name: production
+clickhouse::http_port: 8123
+clickhouse::tcp_port: 9000
+clickhouse::https_port: ~
+clickhouse::tcp_secure_port: ~
+clickhouse::certificate_file: /etc/clickhouse-server/server.crt
+clickhouse::private_key_file: /etc/clickhouse-server/server.key
+clickhouse::dh_params_file: /etc/clickhouse-server/dhparam.pem
+clickhouse::verification_mode: none
+clickhouse::load_default_ca_file: true
+clickhouse::cache_sessions: true
+clickhouse::disable_protocols:
+  - sslv2
+  - sslv3
+clickhouse::prefer_server_ciphers: true
+clickhouse::allow_self_signed_client: false
+clickhouse::interserver_http_port: 9009
+clickhouse::interserver_http_host: ~
+clickhouse::listen_hosts:
+  - '127.0.0.1'
+  - '::'
+clickhouse::max_connections: 4096
+clickhouse::keep_alive_timeout: 3
+clickhouse::max_concurrent_queries: 100
+clickhouse::uncompressed_cache_size: 8589934592
+clickhouse::data_path: /var/lib/clickhouse
+clickhouse::tmp_path: /var/lib/clickhouse/tmp
+clickhouse::user_files_path: /var/lib/clickhouse/user_files
+clickhouse::timezone: ~
+clickhouse::umask: '027'
+clickhouse::remotes:
+  test_shard_localhost:
+    - replicas:
+      - host: localhost
+        port: 9000
+  test_shard_localhost_secure:
+    - replicas:
+      - host: localhost
+        port: 9000
+        secure: true
+clickhouse::builtin_dictionaries_reload_interval: 3600
+clickhouse::max_session_timeout: 3600
+clickhouse::default_session_timeout: 60 
+clickhouse::query_log_db: system
+clickhouse::query_log_table: query_log
+clickhouse::query_log_partition_by: 'toYYYYMM(event_date)'
+clickhouse::query_log_flush_interval: 7500
+clickhouse::part_log_enable: false
+clickhouse::part_log_db: system
+clickhouse::part_log_table: part_log
+clickhouse::part_log_flush_interval: 7500
+clickhouse::path_to_regions_hierarchy_file: ~
+clickhouse::path_to_regions_names_files: ~
+clickhouse::dictionaries_config: '*_dictionary.xml'
+clickhouse::dictionaries_config_source: ~
+clickhouse::compression_enable: false
+clickhouse::compression_min_part_size: 10000000000
+clickhouse::compression_min_part_size_ratio: 0.01
+clickhouse::compression_method: zstd
+clickhouse::compression_level: 6
+clickhouse::distributed_ddl_enable: true
+clickhouse::distributed_ddl_path: /clickhouse/task_queue/ddl
+clickhouse::distributed_ddl_profile: ~
+clickhouse::max_suspicious_broken_parts: ~
+clickhouse::max_table_size_to_drop: ~
+clickhouse::format_schema_path: /var/lib/clickhouse/format_schemas
+clickhouse::disable_internal_dns_cache: false

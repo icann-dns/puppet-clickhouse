@@ -1,0 +1,29 @@
+stages:
+  - lint
+  - rubocop
+  - rspec
+  - beaker_apply
+  - beaker_agent
+
+before_script:
+  - ruby -v
+  - bundle --version
+  - gem --version
+  - rm Gemfile.lock || true
+  - bundle install --path=${BUNDLE_PATH:-vendor/bundle}
+
+lint:
+  stage: rspec
+  script:
+    - bundle exec rake validate lint
+
+rubocop:
+  stage: rubocop
+  script:
+    - bundle exec rake rubocop
+
+rspec:
+  stage: rspec
+  script:
+    - bundle exec rake spec
+

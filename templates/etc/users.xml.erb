@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<yandex>
+  <profiles>
+    <default>
+      <max_memory_usage><%= @max_memory_usage %></max_memory_usage>
+      <use_uncompressed_cache><% if @use_uncompressed_cache %>1<% else %>0<% end %></use_uncompressed_cache>
+      <load_balancing><%= @load_balancing %></load_balancing>
+    </default>
+    <readonly>
+      <readonly>1</readonly>
+    </readonly>
+  </profiles>
+  <users>
+     <default>
+<%- if @password_sha256 -%>
+          <password_sha256_hex><%= @password_sha256 %></password_sha256_hex>
+<%- end -%>
+    </default>
+  </users>
+</yandex>
