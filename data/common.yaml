@@ -78,7 +78,7 @@ clickhouse::max_suspicious_broken_parts: ~
 clickhouse::max_table_size_to_drop: ~
 clickhouse::format_schema_path: /var/lib/clickhouse/format_schemas
 clickhouse::disable_internal_dns_cache: false
-clickhouse::default_password: password
+clickhouse::default_password: ''
 clickhouse::default_networks:
   - '::/00'
 clickhouse::default_profile: default
