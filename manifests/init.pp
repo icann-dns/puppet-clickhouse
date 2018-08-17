@@ -12,7 +12,7 @@ class clickhouse (
   String[1]                           $package,
   String[1]                           $service,
   Optional[Pattern[/(?i:[a-f\d]+)/]]  $default_password_sha256,
-  String[1]                           $default_password,
+  String[0]                           $default_password,
   Integer[0]                          $max_memory_usage,
   Boolean                             $use_uncompressed_cache,
   Clickhouse::Load_balance            $load_balancing,
