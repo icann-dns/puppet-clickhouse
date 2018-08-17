@@ -12,10 +12,10 @@
   </profiles>
   <users>
      <default>
-<%- if @password_sha256 -%>
+<%- if @default_password_sha256 -%>
           <password_sha256_hex><%= @default_password_sha256 %></password_sha256_hex>
 <%- else -%>
-          <password><%= @default_password %>
+          <password><%= @default_password %></password>
 <%- end -%>
           <networks>
 <%- @default_networks.each do |network| -%>

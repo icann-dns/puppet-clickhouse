@@ -191,8 +191,6 @@ describe 'clickhouse' do
               <users>
               \s+<default>
               \s+<password_sha256_hex>DEADBEEF</password_sha256_hex>
-              \s+</default>
-              \s+</users>
               }x,
             )
           end
