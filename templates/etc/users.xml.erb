@@ -27,13 +27,15 @@
     </default>
   </users>
   <quotas>
-    <interval>
-      <duration><%= @default_duration %></duration>
-      <queries><%= @default_queries %></queries>
-      <errors><%= @default_errors %></errors>
-      <result_rows><%= @default_result_rows %></result_rows>
-      <read_rows><%= @default_read_rows %></read_rows>
-      <execution_time><%= @default_execution_time %></execution_time>
-    </interval>
+    <default>
+      <interval>
+        <duration><%= @default_duration %></duration>
+        <queries><%= @default_queries %></queries>
+        <errors><%= @default_errors %></errors>
+        <result_rows><%= @default_result_rows %></result_rows>
+        <read_rows><%= @default_read_rows %></read_rows>
+        <execution_time><%= @default_execution_time %></execution_time>
+      </interval>
+    </default>
   </quotas>
 </yandex>
