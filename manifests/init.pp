@@ -11,7 +11,8 @@ class clickhouse (
   Stdlib::Unixpath                    $conf_dir,
   String[1]                           $package,
   String[1]                           $service,
-  Optional[Pattern[/(?i:[a-f\d]+)/]]  $password_sha256,
+  Optional[Pattern[/(?i:[a-f\d]+)/]]  $default_password_sha256,
+  String[1]                           $default_password,
   Integer[0]                          $max_memory_usage,
   Boolean                             $use_uncompressed_cache,
   Clickhouse::Load_balance            $load_balancing,
@@ -38,6 +39,7 @@ class clickhouse (
   Optional[Stdlib::Host]              $interserver_http_host,
   Array[Stdlib::IP::Address]          $listen_hosts,
   Integer[1]                          $max_connections,
+  Integer[1]                          $mark_cache_size,
   Integer[1]                          $keep_alive_timeout,
   Integer[1]                          $max_concurrent_queries,
   Integer[1]                          $uncompressed_cache_size,
@@ -74,6 +76,15 @@ class clickhouse (
   Optional[Integer[1]]                $max_table_size_to_drop,
   Stdlib::Unixpath                    $format_schema_path,
   Boolean                             $disable_internal_dns_cache,
+  Array[String[1]]                    $default_networks,
+  String[1]                           $default_profile,
+  String[1]                           $default_quota,
+  Integer[0]                          $default_duration,
+  Integer[0]                          $default_queries,
+  Integer[0]                          $default_errors,
+  Integer[0]                          $default_result_rows,
+  Integer[0]                          $default_read_rows,
+  Integer[0]                          $default_execution_time,
 ) {
   ensure_packages([$package])
   if $dictionaries_config_source {

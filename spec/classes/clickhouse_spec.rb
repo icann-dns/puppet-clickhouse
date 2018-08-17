@@ -180,8 +180,8 @@ describe 'clickhouse' do
           it { is_expected.to compile }
           it { is_expected.to contain_package('foobar') }
         end
-        context 'password_sha256' do
-          before(:each) { params.merge!(password_sha256: 'DEADBEEF') }
+        context 'default_password_sha256' do
+          before(:each) { params.merge!(default_password_sha256: 'DEADBEEF') }
           it { is_expected.to compile }
           it do
             is_expected.to contain_file(

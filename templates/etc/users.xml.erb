@@ -13,8 +13,27 @@
   <users>
      <default>
 <%- if @password_sha256 -%>
-          <password_sha256_hex><%= @password_sha256 %></password_sha256_hex>
+          <password_sha256_hex><%= @default_password_sha256 %></password_sha256_hex>
+<%- else -%>
+          <password><%= @default_password %>
 <%- end -%>
+          <networks>
+<%- @default_networks.each do |network| -%>
+            <ip><%= network %></ip>
+<%- end -%>
+          </networks>
+          <profile><%= @default_profile %></profile>
+          <quota><%= @default_quota %></quota>
     </default>
   </users>
+  <quotas>
+    <interval>
+      <duration><%= @default_duration %></duration>
+      <queries><%= @default_queries %></queries>
+      <errors><%= @default_errors %></errors>
+      <result_rows><%= @default_result_rows %></result_rows>
+      <read_rows><%= @default_read_rows %></read_rows>
+      <execution_time><%= @default_execution_time %></execution_time>
+    </interval>
+  </quotas>
 </yandex>

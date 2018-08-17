@@ -1,7 +1,7 @@
 clickhouse::conf_dir: /etc/clickhouse-server
 clickhouse::package: clickhouse-server
 clickhouse::service: clickhouse-server
-clickhouse::password_sha256: ~
+clickhouse::default_password_sha256: ~
 clickhouse::max_memory_usage: 10000000000
 clickhouse::use_uncompressed_cache: false
 clickhouse::load_balancing: random
@@ -31,6 +31,7 @@ clickhouse::interserver_http_host: ~
 clickhouse::listen_hosts:
   - '127.0.0.1'
   - '::'
+clickhouse::mark_cache_size: 5368709120
 clickhouse::max_connections: 4096
 clickhouse::keep_alive_timeout: 3
 clickhouse::max_concurrent_queries: 100
@@ -77,3 +78,14 @@ clickhouse::max_suspicious_broken_parts: ~
 clickhouse::max_table_size_to_drop: ~
 clickhouse::format_schema_path: /var/lib/clickhouse/format_schemas
 clickhouse::disable_internal_dns_cache: false
+clickhouse::default_password: password
+clickhouse::default_networks:
+  - '::/00'
+clickhouse::default_profile: default
+clickhouse::default_quota: default
+clickhouse::default_duration: 3600
+clickhouse::default_queries: 0
+clickhouse::default_errors: 0
+clickhouse::default_result_rows: 0
+clickhouse::default_read_rows: 0
+clickhouse::default_execution_time: 0
