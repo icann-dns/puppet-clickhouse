@@ -18,18 +18,18 @@ describe 'clickhouse' do
         it { is_expected.to contain_service('clickhouse-server') }
         it do
           is_expected.to contain_file(
-            '/etc/clickhouse-server/users.xml'
+            '/etc/clickhouse-server/users.xml',
           ).with_ensure('file').with_content(
-            %r{<max_memory_usage>10000000000</max_memory_usage>}
+            %r{<max_memory_usage>10000000000</max_memory_usage>},
           ).with_content(
-            %r{<use_uncompressed_cache>0</use_uncompressed_cache>}
+            %r{<use_uncompressed_cache>0</use_uncompressed_cache>},
           ).with_content(
-            %r{<load_balancing>random</load_balancing>}
+            %r{<load_balancing>random</load_balancing>},
           )
         end
         it do
           is_expected.to contain_file(
-            '/etc/clickhouse-server/config.xml'
+            '/etc/clickhouse-server/config.xml',
           ).with_ensure('file').with_content(
             %r{
             \s+<logger>
@@ -39,17 +39,17 @@ describe 'clickhouse' do
             \s+<size>100M</size>
             \s+<count>10</count>
             \s+</logger>
-            }x
+            }x,
           ).with_content(
-            %r{<display_name>production</display_name>}
+            %r{<display_name>production</display_name>},
           ).with_content(
-            %r{<http_port>8123</http_port>}
+            %r{<http_port>8123</http_port>},
           ).with_content(
-            %r{<tcp_port>9000</tcp_port>}
+            %r{<tcp_port>9000</tcp_port>},
           ).without_content(
-            %r{<https_port>}
+            %r{<https_port>},
           ).without_content(
-            %r{<tcp_secure_port>}
+            %r{<tcp_secure_port>},
           ).with_content(
             %r{
             <openSSL>
@@ -73,39 +73,39 @@ describe 'clickhouse' do
             \s+</invalidCertificateHandler>
             \s+</client>
             \s+</openSSL>
-            }x
+            }x,
           ).with_content(
-            %r{<interserver_http_port>9009</interserver_http_port>}
+            %r{<interserver_http_port>9009</interserver_http_port>},
           ).without_content(
-            %r{<interserver_http_host>}
+            %r{<interserver_http_host>},
           ).with_content(
-            %r{<listen_host>127.0.0.1</listen_host>}
+            %r{<listen_host>127.0.0.1</listen_host>},
           ).with_content(
-            %r{<listen_host>::</listen_host>}
+            %r{<listen_host>::</listen_host>},
           ).with_content(
-            %r{<max_connections>4096</max_connections>}
+            %r{<max_connections>4096</max_connections>},
           ).with_content(
-            %r{<keep_alive_timeout>3</keep_alive_timeout>}
+            %r{<keep_alive_timeout>3</keep_alive_timeout>},
           ).with_content(
-            %r{<max_concurrent_queries>100</max_concurrent_queries>}
+            %r{<max_concurrent_queries>100</max_concurrent_queries>},
           ).with_content(
-            %r{<uncompressed_cache_size>8589934592</uncompressed_cache_size>}
+            %r{<uncompressed_cache_size>8589934592</uncompressed_cache_size>},
           ).with_content(
-            %r{<path>/var/lib/clickhouse/</path>}
+            %r{<path>/var/lib/clickhouse/</path>},
           ).with_content(
-            %r{<tmp_path>/var/lib/clickhouse/tmp/</tmp_path>}
+            %r{<tmp_path>/var/lib/clickhouse/tmp/</tmp_path>},
           ).with_content(
-            %r{<user_files_path>/var/lib/clickhouse/user_files/</user_files_path>}
+            %r{<user_files_path>/var/lib/clickhouse/user_files/</user_files_path>},
           ).with_content(
-            %r{<users_config>users.xml</users_config>}
+            %r{<users_config>users.xml</users_config>},
           ).with_content(
-            %r{<default_profile>default</default_profile>}
+            %r{<default_profile>default</default_profile>},
           ).with_content(
-            %r{<default_database>default</default_database>}
+            %r{<default_database>default</default_database>},
           ).without_content(
-            %r{<timezone>}
+            %r{<timezone>},
           ).with_content(
-            %r{<umask>027</umask>}
+            %r{<umask>027</umask>},
           ).with_content(
             %r{
             <remote_servers>
@@ -127,13 +127,13 @@ describe 'clickhouse' do
             \s+</shard>
             \s+</test_shard_localhost_secure>
             \s+</remote_servers>
-            }x
+            }x,
           ).with_content(
-            %r{<builtin_dictionaries_reload_interval>3600</builtin_dictionaries_reload_interval>}
+            %r{<builtin_dictionaries_reload_interval>3600</builtin_dictionaries_reload_interval>},
           ).with_content(
-            %r{<max_session_timeout>3600</max_session_timeout>}
+            %r{<max_session_timeout>3600</max_session_timeout>},
           ).with_content(
-            %r{<default_session_timeout>60</default_session_timeout>}
+            %r{<default_session_timeout>60</default_session_timeout>},
           ).with_content(
             %r{
             \s+<query_log>
@@ -142,29 +142,29 @@ describe 'clickhouse' do
             \s+<partition_by>toYYYYMM\(event_date\)</partition_by>
             \s+<flush_interval_milliseconds>7500</flush_interval_milliseconds>
             \s+</query_log>
-            }x
+            }x,
           ).without_content(
-            %r{<part_log>}
+            %r{<part_log>},
           ).without_content(
-            %r{<path_to_regions_hierarchy_file>}
+            %r{<path_to_regions_hierarchy_file>},
           ).without_content(
-            %r{<path_to_regions_names_files>}
+            %r{<path_to_regions_names_files>},
           ).with_content(
-            %r{<dictionaries_config>\*_dictionary.xml</dictionaries_config>}
+            %r{<dictionaries_config>\*_dictionary.xml</dictionaries_config>},
           ).with_content(
-            %r{<compression>\s+</compression>}
+            %r{<compression>\s+</compression>},
           ).with_content(
             %r{
             <distributed_ddl>
             \s+<path>/clickhouse/task_queue/ddl</path>
             \s+</distributed_ddl>
-            }x
+            }x,
           ).without_content(
-            %r{<max_suspicious_broken_parts>}
+            %r{<max_suspicious_broken_parts>},
           ).with_content(
-            %r{<format_schema_path>/var/lib/clickhouse/format_schemas/</format_schema_path>}
+            %r{<format_schema_path>/var/lib/clickhouse/format_schemas/</format_schema_path>},
           ).without_content(
-            %r{<disable_internal_dns_cache>}
+            %r{<disable_internal_dns_cache>},
           )
         end
       end
@@ -185,7 +185,7 @@ describe 'clickhouse' do
           it { is_expected.to compile }
           it do
             is_expected.to contain_file(
-              '/etc/clickhouse-server/users.xml'
+              '/etc/clickhouse-server/users.xml',
             ).with_ensure('file').with_content(
               %r{
               <users>
@@ -193,7 +193,7 @@ describe 'clickhouse' do
               \s+<password_sha256_hex>DEADBEEF</password_sha256_hex>
               \s+</default>
               \s+</users>
-              }x
+              }x,
             )
           end
         end
@@ -202,9 +202,9 @@ describe 'clickhouse' do
           it { is_expected.to compile }
           it do
             is_expected.to contain_file(
-              '/etc/clickhouse-server/users.xml'
+              '/etc/clickhouse-server/users.xml',
             ).with_ensure('file').with_content(
-              %r{<max_memory_usage>42</max_memory_usage>}
+              %r{<max_memory_usage>42</max_memory_usage>},
             )
           end
         end
@@ -213,9 +213,9 @@ describe 'clickhouse' do
           it { is_expected.to compile }
           it do
             is_expected.to contain_file(
-              '/etc/clickhouse-server/users.xml'
+              '/etc/clickhouse-server/users.xml',
             ).with_ensure('file').with_content(
-              %r{<use_uncompressed_cache>1</use_uncompressed_cache>}
+              %r{<use_uncompressed_cache>1</use_uncompressed_cache>},
             )
           end
         end
@@ -224,9 +224,9 @@ describe 'clickhouse' do
           it { is_expected.to compile }
           it do
             is_expected.to contain_file(
-              '/etc/clickhouse-server/users.xml'
+              '/etc/clickhouse-server/users.xml',
             ).with_ensure('file').with_content(
-              %r{<load_balancing>nearest_hostname</load_balancing>}
+              %r{<load_balancing>nearest_hostname</load_balancing>},
             )
           end
         end
@@ -235,9 +235,9 @@ describe 'clickhouse' do
           it { is_expected.to compile }
           it do
             is_expected.to contain_file(
-              '/etc/clickhouse-server/config.xml'
+              '/etc/clickhouse-server/config.xml',
             ).with_ensure('file').with_content(
-              %r{<level>notice</level>}
+              %r{<level>notice</level>},
             )
           end
         end
@@ -246,9 +246,9 @@ describe 'clickhouse' do
           it { is_expected.to compile }
           it do
             is_expected.to contain_file(
-              '/etc/clickhouse-server/config.xml'
+              '/etc/clickhouse-server/config.xml',
             ).with_ensure('file').with_content(
-              %r{<log>/foo/bar</log>}
+              %r{<log>/foo/bar</log>},
             )
           end
         end
@@ -257,9 +257,9 @@ describe 'clickhouse' do
           it { is_expected.to compile }
           it do
             is_expected.to contain_file(
-              '/etc/clickhouse-server/config.xml'
+              '/etc/clickhouse-server/config.xml',
             ).with_ensure('file').with_content(
-              %r{<errorlog>/foo/bar</errorlog>}
+              %r{<errorlog>/foo/bar</errorlog>},
             )
           end
         end
@@ -268,9 +268,9 @@ describe 'clickhouse' do
           it { is_expected.to compile }
           it do
             is_expected.to contain_file(
-              '/etc/clickhouse-server/config.xml'
+              '/etc/clickhouse-server/config.xml',
             ).with_ensure('file').with_content(
-              %r{<size>42M</size>}
+              %r{<size>42M</size>},
             )
           end
         end
@@ -279,9 +279,9 @@ describe 'clickhouse' do
           it { is_expected.to compile }
           it do
             is_expected.to contain_file(
-              '/etc/clickhouse-server/config.xml'
+              '/etc/clickhouse-server/config.xml',
             ).with_ensure('file').with_content(
-              %r{<count>42</count>}
+              %r{<count>42</count>},
             )
           end
         end
@@ -290,9 +290,9 @@ describe 'clickhouse' do
           it { is_expected.to compile }
           it do
             is_expected.to contain_file(
-              '/etc/clickhouse-server/config.xml'
+              '/etc/clickhouse-server/config.xml',
             ).with_ensure('file').with_content(
-              %r{<display_name>foobar</display_name>}
+              %r{<display_name>foobar</display_name>},
             )
           end
         end
@@ -301,9 +301,9 @@ describe 'clickhouse' do
           it { is_expected.to compile }
           it do
             is_expected.to contain_file(
-              '/etc/clickhouse-server/config.xml'
+              '/etc/clickhouse-server/config.xml',
             ).with_ensure('file').with_content(
-              %r{<http_port>42</http_port>}
+              %r{<http_port>42</http_port>},
             )
           end
         end
@@ -312,9 +312,9 @@ describe 'clickhouse' do
           it { is_expected.to compile }
           it do
             is_expected.to contain_file(
-              '/etc/clickhouse-server/config.xml'
+              '/etc/clickhouse-server/config.xml',
             ).with_ensure('file').with_content(
-              %r{<tcp_port>42</tcp_port>}
+              %r{<tcp_port>42</tcp_port>},
             )
           end
         end
@@ -323,9 +323,9 @@ describe 'clickhouse' do
           it { is_expected.to compile }
           it do
             is_expected.to contain_file(
-              '/etc/clickhouse-server/config.xml'
+              '/etc/clickhouse-server/config.xml',
             ).with_ensure('file').with_content(
-              %r{<https_port>42</https_port>}
+              %r{<https_port>42</https_port>},
             )
           end
         end
@@ -334,9 +334,9 @@ describe 'clickhouse' do
           it { is_expected.to compile }
           it do
             is_expected.to contain_file(
-              '/etc/clickhouse-server/config.xml'
+              '/etc/clickhouse-server/config.xml',
             ).with_ensure('file').with_content(
-              %r{<tcp_secure_port>42</tcp_secure_port>}
+              %r{<tcp_secure_port>42</tcp_secure_port>},
             )
           end
         end
@@ -345,9 +345,9 @@ describe 'clickhouse' do
           it { is_expected.to compile }
           it do
             is_expected.to contain_file(
-              '/etc/clickhouse-server/config.xml'
+              '/etc/clickhouse-server/config.xml',
             ).with_ensure('file').with_content(
-              %r{<server>.+<certificateFile>/foo/bar</certificateFile>.+</server>}m
+              %r{<server>.+<certificateFile>/foo/bar</certificateFile>.+</server>}m,
             )
           end
         end
@@ -356,9 +356,9 @@ describe 'clickhouse' do
           it { is_expected.to compile }
           it do
             is_expected.to contain_file(
-              '/etc/clickhouse-server/config.xml'
+              '/etc/clickhouse-server/config.xml',
             ).with_ensure('file').with_content(
-              %r{<server>.+<privateKeyFile>/foo/bar</privateKeyFile>.+</server>}m
+              %r{<server>.+<privateKeyFile>/foo/bar</privateKeyFile>.+</server>}m,
             )
           end
         end
@@ -367,9 +367,9 @@ describe 'clickhouse' do
           it { is_expected.to compile }
           it do
             is_expected.to contain_file(
-              '/etc/clickhouse-server/config.xml'
+              '/etc/clickhouse-server/config.xml',
             ).with_ensure('file').with_content(
-              %r{<server>.+<dhParamsFile>/foo/bar</dhParamsFile>.+</server>}m
+              %r{<server>.+<dhParamsFile>/foo/bar</dhParamsFile>.+</server>}m,
             )
           end
         end
@@ -378,9 +378,9 @@ describe 'clickhouse' do
           it { is_expected.to compile }
           it do
             is_expected.to contain_file(
-              '/etc/clickhouse-server/config.xml'
+              '/etc/clickhouse-server/config.xml',
             ).with_ensure('file').with_content(
-              %r{<server>.+<verificationMode>foobar</verificationMode>.+</server>}m
+              %r{<server>.+<verificationMode>foobar</verificationMode>.+</server>}m,
             )
           end
         end
@@ -389,11 +389,11 @@ describe 'clickhouse' do
           it { is_expected.to compile }
           it do
             is_expected.to contain_file(
-              '/etc/clickhouse-server/config.xml'
+              '/etc/clickhouse-server/config.xml',
             ).with_ensure('file').with_content(
-              %r{<server>.+<loadDefaultCAFile>false</loadDefaultCAFile>.+</server>}m
+              %r{<server>.+<loadDefaultCAFile>false</loadDefaultCAFile>.+</server>}m,
             ).with_content(
-              %r{<client>.+<loadDefaultCAFile>false</loadDefaultCAFile>.+</client>}m
+              %r{<client>.+<loadDefaultCAFile>false</loadDefaultCAFile>.+</client>}m,
             )
           end
         end
@@ -402,24 +402,24 @@ describe 'clickhouse' do
           it { is_expected.to compile }
           it do
             is_expected.to contain_file(
-              '/etc/clickhouse-server/config.xml'
+              '/etc/clickhouse-server/config.xml',
             ).with_ensure('file').with_content(
-              %r{<server>.+<cacheSessions>false</cacheSessions>.+</server>}m
+              %r{<server>.+<cacheSessions>false</cacheSessions>.+</server>}m,
             ).with_content(
-              %r{<client>.+<cacheSessions>false</cacheSessions>.+</client>}m
+              %r{<client>.+<cacheSessions>false</cacheSessions>.+</client>}m,
             )
           end
         end
         context 'disable_protocols' do
-          before(:each) { params.merge!(disable_protocols: ['tls','sslv2']) }
+          before(:each) { params.merge!(disable_protocols: ['tls', 'sslv2']) }
           it { is_expected.to compile }
           it do
             is_expected.to contain_file(
-              '/etc/clickhouse-server/config.xml'
+              '/etc/clickhouse-server/config.xml',
             ).with_ensure('file').with_content(
-              %r{<server>.+<disableProtocols>tls,sslv2</disableProtocols>.+</server>}m
+              %r{<server>.+<disableProtocols>tls,sslv2</disableProtocols>.+</server>}m,
             ).with_content(
-              %r{<client>.+<disableProtocols>tls,sslv2</disableProtocols>.+</client>}m
+              %r{<client>.+<disableProtocols>tls,sslv2</disableProtocols>.+</client>}m,
             )
           end
         end
@@ -428,11 +428,11 @@ describe 'clickhouse' do
           it { is_expected.to compile }
           it do
             is_expected.to contain_file(
-              '/etc/clickhouse-server/config.xml'
+              '/etc/clickhouse-server/config.xml',
             ).with_ensure('file').with_content(
-              %r{<server>.+<preferServerCiphers>false</preferServerCiphers>.+</server>}m
+              %r{<server>.+<preferServerCiphers>false</preferServerCiphers>.+</server>}m,
             ).with_content(
-              %r{<client>.+<preferServerCiphers>false</preferServerCiphers>.+</client>}m
+              %r{<client>.+<preferServerCiphers>false</preferServerCiphers>.+</client>}m,
             )
           end
         end
@@ -441,14 +441,14 @@ describe 'clickhouse' do
           it { is_expected.to compile }
           it do
             is_expected.to contain_file(
-              '/etc/clickhouse-server/config.xml'
+              '/etc/clickhouse-server/config.xml',
             ).with_ensure('file').with_content(
               %r{
               <verificationMode>none</verificationMode>
               \s+<invalidCertificateHandler>
               \s+<name>AcceptCertificateHandler</name>
               \s+</invalidCertificateHandler>
-              }x
+              }x,
             )
           end
         end
@@ -457,9 +457,9 @@ describe 'clickhouse' do
           it { is_expected.to compile }
           it do
             is_expected.to contain_file(
-              '/etc/clickhouse-server/config.xml'
+              '/etc/clickhouse-server/config.xml',
             ).with_ensure('file').with_content(
-              %r{<interserver_http_port>42</interserver_http_port>}
+              %r{<interserver_http_port>42</interserver_http_port>},
             )
           end
         end
@@ -468,9 +468,9 @@ describe 'clickhouse' do
           it { is_expected.to compile }
           it do
             is_expected.to contain_file(
-              '/etc/clickhouse-server/config.xml'
+              '/etc/clickhouse-server/config.xml',
             ).with_ensure('file').with_content(
-              %r{<interserver_http_host>foo.bar</interserver_http_host>}
+              %r{<interserver_http_host>foo.bar</interserver_http_host>},
             )
           end
         end
@@ -479,9 +479,9 @@ describe 'clickhouse' do
           it { is_expected.to compile }
           it do
             is_expected.to contain_file(
-              '/etc/clickhouse-server/config.xml'
+              '/etc/clickhouse-server/config.xml',
             ).with_ensure('file').with_content(
-              %r{<listen_host>::</listen_host>}
+              %r{<listen_host>::</listen_host>},
             )
           end
         end
@@ -492,11 +492,11 @@ describe 'clickhouse' do
           it { is_expected.to compile }
           it do
             is_expected.to contain_file(
-              '/etc/clickhouse-server/config.xml'
+              '/etc/clickhouse-server/config.xml',
             ).with_ensure('file').with_content(
-              %r{<listen_host>192.0.2.42</listen_host>}
+              %r{<listen_host>192.0.2.42</listen_host>},
             ).with_content(
-              %r{<listen_host>2001:db8::42</listen_host>}
+              %r{<listen_host>2001:db8::42</listen_host>},
             )
           end
         end
@@ -505,9 +505,9 @@ describe 'clickhouse' do
           it { is_expected.to compile }
           it do
             is_expected.to contain_file(
-              '/etc/clickhouse-server/config.xml'
+              '/etc/clickhouse-server/config.xml',
             ).with_ensure('file').with_content(
-              %r{<max_connections>42</max_connections>}
+              %r{<max_connections>42</max_connections>},
             )
           end
         end
@@ -516,9 +516,9 @@ describe 'clickhouse' do
           it { is_expected.to compile }
           it do
             is_expected.to contain_file(
-              '/etc/clickhouse-server/config.xml'
+              '/etc/clickhouse-server/config.xml',
             ).with_ensure('file').with_content(
-              %r{<keep_alive_timeout>42</keep_alive_timeout>}
+              %r{<keep_alive_timeout>42</keep_alive_timeout>},
             )
           end
         end
@@ -527,9 +527,9 @@ describe 'clickhouse' do
           it { is_expected.to compile }
           it do
             is_expected.to contain_file(
-              '/etc/clickhouse-server/config.xml'
+              '/etc/clickhouse-server/config.xml',
             ).with_ensure('file').with_content(
-              %r{<max_concurrent_queries>42</max_concurrent_queries>}
+              %r{<max_concurrent_queries>42</max_concurrent_queries>},
             )
           end
         end
@@ -538,9 +538,9 @@ describe 'clickhouse' do
           it { is_expected.to compile }
           it do
             is_expected.to contain_file(
-              '/etc/clickhouse-server/config.xml'
+              '/etc/clickhouse-server/config.xml',
             ).with_ensure('file').with_content(
-              %r{<uncompressed_cache_size>42</uncompressed_cache_size>}
+              %r{<uncompressed_cache_size>42</uncompressed_cache_size>},
             )
           end
         end
@@ -549,9 +549,9 @@ describe 'clickhouse' do
           it { is_expected.to compile }
           it do
             is_expected.to contain_file(
-              '/etc/clickhouse-server/config.xml'
+              '/etc/clickhouse-server/config.xml',
             ).with_ensure('file').with_content(
-              %r{<path>/foo/bar/</path>}
+              %r{<path>/foo/bar/</path>},
             )
           end
         end
@@ -560,9 +560,9 @@ describe 'clickhouse' do
           it { is_expected.to compile }
           it do
             is_expected.to contain_file(
-              '/etc/clickhouse-server/config.xml'
+              '/etc/clickhouse-server/config.xml',
             ).with_ensure('file').with_content(
-              %r{<tmp_path>/foo/bar/</tmp_path>}
+              %r{<tmp_path>/foo/bar/</tmp_path>},
             )
           end
         end
@@ -571,9 +571,9 @@ describe 'clickhouse' do
           it { is_expected.to compile }
           it do
             is_expected.to contain_file(
-              '/etc/clickhouse-server/config.xml'
+              '/etc/clickhouse-server/config.xml',
             ).with_ensure('file').with_content(
-              %r{<user_files_path>/foo/bar/</user_files_path>}
+              %r{<user_files_path>/foo/bar/</user_files_path>},
             )
           end
         end
@@ -582,9 +582,9 @@ describe 'clickhouse' do
           it { is_expected.to compile }
           it do
             is_expected.to contain_file(
-              '/etc/clickhouse-server/config.xml'
+              '/etc/clickhouse-server/config.xml',
             ).with_ensure('file').with_content(
-              %r{<timezone>UTC</timezone>}
+              %r{<timezone>UTC</timezone>},
             )
           end
         end
@@ -593,9 +593,9 @@ describe 'clickhouse' do
           it { is_expected.to compile }
           it do
             is_expected.to contain_file(
-              '/etc/clickhouse-server/config.xml'
+              '/etc/clickhouse-server/config.xml',
             ).with_ensure('file').with_content(
-              %r{<umask>022</umask>}
+              %r{<umask>022</umask>},
             )
           end
         end
@@ -604,7 +604,7 @@ describe 'clickhouse' do
             params.merge!(
               remotes: {
                 'multi_shard' => [
-                  { 
+                  {
                     'wieght' => 1,
                     'replicas' => [
                       {
@@ -634,15 +634,15 @@ describe 'clickhouse' do
                       },
                     ],
                   },
-                ]
-              }
+                ],
+              },
             )
           end
           it { is_expected.to compile }
           # Add Check to validate change was successful
           it do
             is_expected.to contain_file(
-              '/etc/clickhouse-server/config.xml'
+              '/etc/clickhouse-server/config.xml',
             ).with_ensure('file').with_content(
               %r{
                 <remote_servers>
@@ -675,7 +675,7 @@ describe 'clickhouse' do
                 \s+</shard>
                 \s+</multi_shard>
                 \s+</remote_servers>
-              }x
+              }x,
             )
           end
         end
@@ -686,9 +686,9 @@ describe 'clickhouse' do
           it { is_expected.to compile }
           it do
             is_expected.to contain_file(
-              '/etc/clickhouse-server/config.xml'
+              '/etc/clickhouse-server/config.xml',
             ).with_ensure('file').with_content(
-              %r{<builtin_dictionaries_reload_interval>42</builtin_dictionaries_reload_interval>}
+              %r{<builtin_dictionaries_reload_interval>42</builtin_dictionaries_reload_interval>},
             )
           end
         end
@@ -697,9 +697,9 @@ describe 'clickhouse' do
           it { is_expected.to compile }
           it do
             is_expected.to contain_file(
-              '/etc/clickhouse-server/config.xml'
+              '/etc/clickhouse-server/config.xml',
             ).with_ensure('file').with_content(
-              %r{<max_session_timeout>42</max_session_timeout>}
+              %r{<max_session_timeout>42</max_session_timeout>},
             )
           end
         end
@@ -708,9 +708,9 @@ describe 'clickhouse' do
           it { is_expected.to compile }
           it do
             is_expected.to contain_file(
-              '/etc/clickhouse-server/config.xml'
+              '/etc/clickhouse-server/config.xml',
             ).with_ensure('file').with_content(
-              %r{<default_session_timeout>42</default_session_timeout>}
+              %r{<default_session_timeout>42</default_session_timeout>},
             )
           end
         end
@@ -719,9 +719,9 @@ describe 'clickhouse' do
           it { is_expected.to compile }
           it do
             is_expected.to contain_file(
-              '/etc/clickhouse-server/config.xml'
+              '/etc/clickhouse-server/config.xml',
             ).with_ensure('file').with_content(
-              %r{<query_log>.*<database>foobar</database>.*</query_log>}m
+              %r{<query_log>.*<database>foobar</database>.*</query_log>}m,
             )
           end
         end
@@ -730,9 +730,9 @@ describe 'clickhouse' do
           it { is_expected.to compile }
           it do
             is_expected.to contain_file(
-              '/etc/clickhouse-server/config.xml'
+              '/etc/clickhouse-server/config.xml',
             ).with_ensure('file').with_content(
-              %r{<query_log>.*<table>foobar</table>.*</query_log>}m
+              %r{<query_log>.*<table>foobar</table>.*</query_log>}m,
             )
           end
         end
@@ -741,9 +741,9 @@ describe 'clickhouse' do
           it { is_expected.to compile }
           it do
             is_expected.to contain_file(
-              '/etc/clickhouse-server/config.xml'
+              '/etc/clickhouse-server/config.xml',
             ).with_ensure('file').with_content(
-              %r{<query_log>.*<partition_by>foobar</partition_by>.*</query_log>}m
+              %r{<query_log>.*<partition_by>foobar</partition_by>.*</query_log>}m,
             )
           end
         end
@@ -752,9 +752,9 @@ describe 'clickhouse' do
           it { is_expected.to compile }
           it do
             is_expected.to contain_file(
-              '/etc/clickhouse-server/config.xml'
+              '/etc/clickhouse-server/config.xml',
             ).with_ensure('file').with_content(
-              %r{<query_log>.*<flush_interval_milliseconds>42</flush_interval_milliseconds>.*</query_log>}m
+              %r{<query_log>.*<flush_interval_milliseconds>42</flush_interval_milliseconds>.*</query_log>}m,
             )
           end
         end
@@ -763,7 +763,7 @@ describe 'clickhouse' do
           it { is_expected.to compile }
           it do
             is_expected.to contain_file(
-              '/etc/clickhouse-server/config.xml'
+              '/etc/clickhouse-server/config.xml',
             ).with_ensure('file').with_content(
               %r{
               <part_log>
@@ -771,7 +771,7 @@ describe 'clickhouse' do
               \s+<table>part_log</table>
               \s+<flush_interval_milliseconds>7500</flush_interval_milliseconds>
               \s+</part_log>
-              }x
+              }x,
             )
           end
         end
@@ -782,7 +782,7 @@ describe 'clickhouse' do
           it { is_expected.to compile }
           it do
             is_expected.to contain_file(
-              '/etc/clickhouse-server/config.xml'
+              '/etc/clickhouse-server/config.xml',
             ).with_ensure('file').with_content(
               %r{
               <part_log>
@@ -790,7 +790,7 @@ describe 'clickhouse' do
               \s+<table>part_log</table>
               \s+<flush_interval_milliseconds>7500</flush_interval_milliseconds>
               \s+</part_log>
-              }x
+              }x,
             )
           end
         end
@@ -801,7 +801,7 @@ describe 'clickhouse' do
           it { is_expected.to compile }
           it do
             is_expected.to contain_file(
-              '/etc/clickhouse-server/config.xml'
+              '/etc/clickhouse-server/config.xml',
             ).with_ensure('file').with_content(
               %r{
               <part_log>
@@ -809,7 +809,7 @@ describe 'clickhouse' do
               \s+<table>foobar</table>
               \s+<flush_interval_milliseconds>7500</flush_interval_milliseconds>
               \s+</part_log>
-              }x
+              }x,
             )
           end
         end
@@ -820,7 +820,7 @@ describe 'clickhouse' do
           it { is_expected.to compile }
           it do
             is_expected.to contain_file(
-              '/etc/clickhouse-server/config.xml'
+              '/etc/clickhouse-server/config.xml',
             ).with_ensure('file').with_content(
               %r{
               <part_log>
@@ -828,7 +828,7 @@ describe 'clickhouse' do
               \s+<table>part_log</table>
               \s+<flush_interval_milliseconds>42</flush_interval_milliseconds>
               \s+</part_log>
-              }x
+              }x,
             )
           end
         end
@@ -839,9 +839,9 @@ describe 'clickhouse' do
           it { is_expected.to compile }
           it do
             is_expected.to contain_file(
-              '/etc/clickhouse-server/config.xml'
+              '/etc/clickhouse-server/config.xml',
             ).with_ensure('file').with_content(
-              %r{<path_to_regions_hierarchy_file>/foo/bar</path_to_regions_hierarchy_file>}
+              %r{<path_to_regions_hierarchy_file>/foo/bar</path_to_regions_hierarchy_file>},
             )
           end
         end
@@ -850,9 +850,9 @@ describe 'clickhouse' do
           it { is_expected.to compile }
           it do
             is_expected.to contain_file(
-              '/etc/clickhouse-server/config.xml'
+              '/etc/clickhouse-server/config.xml',
             ).with_ensure('file').with_content(
-              %r{<path_to_regions_names_files>/foo/bar</path_to_regions_names_files>}
+              %r{<path_to_regions_names_files>/foo/bar</path_to_regions_names_files>},
             )
           end
         end
@@ -861,9 +861,9 @@ describe 'clickhouse' do
           it { is_expected.to compile }
           it do
             is_expected.to contain_file(
-              '/etc/clickhouse-server/config.xml'
+              '/etc/clickhouse-server/config.xml',
             ).with_ensure('file').with_content(
-              %r{<dictionaries_config>\*_foobar</dictionaries_config>}
+              %r{<dictionaries_config>\*_foobar</dictionaries_config>},
             )
           end
         end
@@ -872,7 +872,7 @@ describe 'clickhouse' do
           it { is_expected.to compile }
           it do
             is_expected.to contain_file(
-              '/etc/clickhouse-server/config.xml'
+              '/etc/clickhouse-server/config.xml',
             ).with_ensure('file').with_content(
               %r{
               <compression>
@@ -883,7 +883,7 @@ describe 'clickhouse' do
               \s+<level>6</level>
               \s+</case>
               \s+</compression>
-              }x
+              }x,
             )
           end
         end
@@ -897,7 +897,7 @@ describe 'clickhouse' do
           it { is_expected.to compile }
           it do
             is_expected.to contain_file(
-              '/etc/clickhouse-server/config.xml'
+              '/etc/clickhouse-server/config.xml',
             ).with_ensure('file').with_content(
               %r{
               <compression>
@@ -908,7 +908,7 @@ describe 'clickhouse' do
               \s+<level>6</level>
               \s+</case>
               \s+</compression>
-              }x
+              }x,
             )
           end
         end
@@ -916,13 +916,13 @@ describe 'clickhouse' do
           before(:each) do
             params.merge!(
               compression_enable: true,
-              compression_min_part_size_ratio: 0.2
+              compression_min_part_size_ratio: 0.2,
             )
           end
           it { is_expected.to compile }
           it do
             is_expected.to contain_file(
-              '/etc/clickhouse-server/config.xml'
+              '/etc/clickhouse-server/config.xml',
             ).with_ensure('file').with_content(
               %r{
               <compression>
@@ -933,7 +933,7 @@ describe 'clickhouse' do
               \s+<level>6</level>
               \s+</case>
               \s+</compression>
-              }x
+              }x,
             )
           end
         end
@@ -941,13 +941,13 @@ describe 'clickhouse' do
           before(:each) do
             params.merge!(
               compression_enable: true,
-              compression_method: 'foobar'
+              compression_method: 'foobar',
             )
           end
           it { is_expected.to compile }
           it do
             is_expected.to contain_file(
-              '/etc/clickhouse-server/config.xml'
+              '/etc/clickhouse-server/config.xml',
             ).with_ensure('file').with_content(
               %r{
               <compression>
@@ -958,7 +958,7 @@ describe 'clickhouse' do
               \s+<level>6</level>
               \s+</case>
               \s+</compression>
-              }x
+              }x,
             )
           end
         end
@@ -966,13 +966,13 @@ describe 'clickhouse' do
           before(:each) do
             params.merge!(
               compression_enable: true,
-              compression_level: 4
+              compression_level: 4,
             )
           end
           it { is_expected.to compile }
           it do
             is_expected.to contain_file(
-              '/etc/clickhouse-server/config.xml'
+              '/etc/clickhouse-server/config.xml',
             ).with_ensure('file').with_content(
               %r{
               <compression>
@@ -983,7 +983,7 @@ describe 'clickhouse' do
               \s+<level>4</level>
               \s+</case>
               \s+</compression>
-              }x
+              }x,
             )
           end
         end
@@ -992,13 +992,13 @@ describe 'clickhouse' do
           it { is_expected.to compile }
           it do
             is_expected.to contain_file(
-              '/etc/clickhouse-server/config.xml'
+              '/etc/clickhouse-server/config.xml',
             ).with_ensure('file').with_content(
               %r{
               <distributed_ddl>
               \s+<path>/clickhouse/task_queue/ddl</path>
               \s+</distributed_ddl>
-              }x
+              }x,
             )
           end
         end
@@ -1012,13 +1012,13 @@ describe 'clickhouse' do
           it { is_expected.to compile }
           it do
             is_expected.to contain_file(
-              '/etc/clickhouse-server/config.xml'
+              '/etc/clickhouse-server/config.xml',
             ).with_ensure('file').with_content(
               %r{
               <distributed_ddl>
               \s+<path>/foo/bar</path>
               \s+</distributed_ddl>
-              }x
+              }x,
             )
           end
         end
@@ -1032,14 +1032,14 @@ describe 'clickhouse' do
           it { is_expected.to compile }
           it do
             is_expected.to contain_file(
-              '/etc/clickhouse-server/config.xml'
+              '/etc/clickhouse-server/config.xml',
             ).with_ensure('file').with_content(
               %r{
               <distributed_ddl>
               \s+<path>/clickhouse/task_queue/ddl</path>
               \s+<profile>foobar</profile>
               \s+</distributed_ddl>
-              }x
+              }x,
             )
           end
         end
@@ -1048,13 +1048,13 @@ describe 'clickhouse' do
           it { is_expected.to compile }
           it do
             is_expected.to contain_file(
-              '/etc/clickhouse-server/config.xml'
+              '/etc/clickhouse-server/config.xml',
             ).with_ensure('file').with_content(
               %r{
               <merge_tree>
               \s+<max_suspicious_broken_parts>42</max_suspicious_broken_parts>
               \s+</merge_tree>
-              }x
+              }x,
             )
           end
         end
@@ -1063,9 +1063,9 @@ describe 'clickhouse' do
           it { is_expected.to compile }
           it do
             is_expected.to contain_file(
-              '/etc/clickhouse-server/config.xml'
+              '/etc/clickhouse-server/config.xml',
             ).with_ensure('file').with_content(
-              %r{<max_table_size_to_drop>42</max_table_size_to_drop>}
+              %r{<max_table_size_to_drop>42</max_table_size_to_drop>},
             )
           end
         end
@@ -1074,9 +1074,9 @@ describe 'clickhouse' do
           it { is_expected.to compile }
           it do
             is_expected.to contain_file(
-              '/etc/clickhouse-server/config.xml'
+              '/etc/clickhouse-server/config.xml',
             ).with_ensure('file').with_content(
-              %r{<format_schema_path>/foo/bar/</format_schema_path>}
+              %r{<format_schema_path>/foo/bar/</format_schema_path>},
             )
           end
         end
@@ -1085,9 +1085,9 @@ describe 'clickhouse' do
           it { is_expected.to compile }
           it do
             is_expected.to contain_file(
-              '/etc/clickhouse-server/config.xml'
+              '/etc/clickhouse-server/config.xml',
             ).with_ensure('file').with_content(
-              %r{<disable_internal_dns_cache>1</disable_internal_dns_cache>}
+              %r{<disable_internal_dns_cache>1</disable_internal_dns_cache>},
             )
           end
         end
