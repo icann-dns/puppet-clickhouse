@@ -1,3 +1,13 @@
+<%- 
+  def trailing_slash(path)
+    if path[-1] == '/'
+      return path
+    else
+      return "#{path}/"
+    end
+  end
+-%>
+
 <?xml version="1.0"?>
   <yandex>
     <logger>
@@ -55,9 +65,9 @@
   <keep_alive_timeout><%= @keep_alive_timeout %></keep_alive_timeout>
   <max_concurrent_queries><%= @max_concurrent_queries %></max_concurrent_queries>
   <uncompressed_cache_size><%= @uncompressed_cache_size %></uncompressed_cache_size>
-  <path><%= @data_path %>/</path>
-  <tmp_path><%= @tmp_path %>/</tmp_path>
-  <user_files_path><%= @user_files_path %>/</user_files_path>
+  <path><%= trailing_slash(@data_path) %></path>
+  <tmp_path><%= trailing_slash(@tmp_path) %></tmp_path>
+  <user_files_path><%= trailing_slash(@user_files_path) %></user_files_path>
   <users_config>users.xml</users_config>
   <default_profile>default</default_profile>
   <default_database>default</default_database>
@@ -147,7 +157,7 @@
 <%- if @max_table_size_to_drop -%>
   <max_table_size_to_drop><%= @max_table_size_to_drop %></max_table_size_to_drop>
 <%- end -%>
-  <format_schema_path><%= @format_schema_path %>/</format_schema_path>
+  <format_schema_path><%= trailing_slash(@format_schema_path) %></format_schema_path>
 <%- if @disable_internal_dns_cache -%>
   <disable_internal_dns_cache>1</disable_internal_dns_cache>
 <%- end -%>

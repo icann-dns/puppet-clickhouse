@@ -867,11 +867,6 @@ describe 'clickhouse' do
             )
           end
         end
-        context 'dictionaries_config_source' do
-          before(:each) { params.merge!(dictionaries_config_source: 'XXXchangemeXXX') }
-          it { is_expected.to compile }
-          # Add Check to validate change was successful
-        end
         context 'compression_enable' do
           before(:each) { params.merge!(compression_enable: true) }
           it { is_expected.to compile }
