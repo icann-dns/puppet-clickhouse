@@ -13,7 +13,7 @@ script:
   - 'bundle exec rake $CHECK'
 bundler_args: --without system_tests
 rvm:
-  - 2.4.1
+  - 2.4.4
 env:
   global:
     - BEAKER_PUPPET_COLLECTION=puppet5 PUPPET_GEM_VERSION="~> 5.0"
@@ -35,7 +35,7 @@ deploy:
   provider: puppetforge
   user: icann
   password:
-    secure: ""
+    secure: "NU1adfQc8OGEgInLhFOM29fveBHfS51y9/+lDB2qPQQes4hOy0C2wIVVONezB5L0m3LFJwawPpDo1UUKaBFQDU+c1Tnrs61EQGWDgzWW30F/jdZzG0JvWKpaAkTRVyNLZQjvyrBfXCfibTVDt9DORer9KAca7I8KLikMmxLqsdZpInEGtoDpSqTvIPMmj0m+u0Of+9+LXew7tkpE2ZzGCapw/Y+Xy2UFQpIaPvT27iyW99MfDPU8io5gOkyGt2UsvyBh7JoCYfJ8xSf4oOVgxwFd/YEX8cWU3M4smPH3U/SNvVo3q4/AQ6P0iOhRB8gFm1As9M1TpwUMoMcn4oeEztz4QAbBjuwhRNx9NHZ5CVXMTqjJiaG7dR8SjfT0VMtgN4woZidfANxQJnjhe3fU7Ud/+XIZex1XkRHKWbyeh6vrnayxQ9jeoFy0jchqtBLaaM1YIzWLS7iBlYOUCGmCx4hfxmVod44AtW+L1fSjWdRZLRjpqk2qO33QFvhGr4TQIpHfIhtnFONoPzPgMDiqOxWvm7VH8KAQ1DvDuzmocwASKEgu4z+P+rGWw/7AtWY/S8E+7asrRI1M78CV5maAP/7kgedLVszBzx0VhRQu4OYrvbFuD+7BDWX1igiolZmdQF1fEsRDENRrYGTS0w6yELj2Wlp5YRTS6VxjSKfzPHg="
   on:
     tags: true
     all_branches: true
