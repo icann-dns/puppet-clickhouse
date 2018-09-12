@@ -25,6 +25,18 @@
           <profile><%= @default_profile %></profile>
           <quota><%= @default_quota %></quota>
     </default>
+<%- @users.each_pair do |user, config| -%>
+    <%= "<#{user}>" %>
+      <password><%= config['password'] %></password>
+      <networks>
+  <%- config['networks'].each do |network| -%>
+        <ip><%= network %></ip>
+  <%- end -%>
+      </networks>
+      <profile><%= config.fetch('profile', 'default') %></profile>
+      <quota><%= config.fetch('quota', 'default') %></quota>
+    <%= "</#{user}>" %>
+<%- end -%>
   </users>
   <quotas>
     <default>

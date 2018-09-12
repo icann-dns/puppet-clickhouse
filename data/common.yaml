@@ -89,3 +89,4 @@ clickhouse::default_errors: 0
 clickhouse::default_result_rows: 0
 clickhouse::default_read_rows: 0
 clickhouse::default_execution_time: 0
+clickhouse::users: {}

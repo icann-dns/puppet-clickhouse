@@ -1089,6 +1089,53 @@ describe 'clickhouse' do
             )
           end
         end
+        context 'users' do
+          before(:each) do
+            params.merge!(
+              users: {
+                'foo' => {
+                  'password' => 'bar',
+                  'networks' => ['::/0'],
+                },
+                'bar' => {
+                  'password' => 'foo',
+                  'networks' => ['2001:db8::/48', '192.0.2.0/24'],
+                  'profile' => 'foobar',
+                  'quota' => 'foobar',
+                }
+              }
+            )
+          end
+          it { is_expected.to compile }
+          it do
+            is_expected.to contain_file(
+              '/etc/clickhouse-server/users.xml',
+            ).with_ensure('file').with_content(
+              %r{
+              <foo>
+              \s+<password>bar</password>
+              \s+<networks>
+              \s+<ip>::/0</ip>
+              \s+</networks>
+              \s+<profile>default</profile>
+              \s+<quota>default</quota>
+              \s+</foo>
+              }x
+              ).with_content(
+              %r{
+              <bar>
+              \s+<password>foo</password>
+              \s+<networks>
+              \s+<ip>2001:db8::/48</ip>
+              \s+<ip>192\.0\.2\.0/24</ip>
+              \s+</networks>
+              \s+<profile>foobar</profile>
+              \s+<quota>foobar</quota>
+              \s+</bar>
+              }x
+              )
+          end
+        end
       end
       describe 'check bad type' do
         context 'conf_dir' do
