@@ -1102,8 +1102,8 @@ describe 'clickhouse' do
                   'networks' => ['2001:db8::/48', '192.0.2.0/24'],
                   'profile' => 'foobar',
                   'quota' => 'foobar',
-                }
-              }
+                },
+              },
             )
           end
           it { is_expected.to compile }
@@ -1120,8 +1120,8 @@ describe 'clickhouse' do
               \s+<profile>default</profile>
               \s+<quota>default</quota>
               \s+</foo>
-              }x
-              ).with_content(
+              }x,
+            ).with_content(
               %r{
               <bar>
               \s+<password>foo</password>
@@ -1132,8 +1132,8 @@ describe 'clickhouse' do
               \s+<profile>foobar</profile>
               \s+<quota>foobar</quota>
               \s+</bar>
-              }x
-              )
+              }x,
+            )
           end
         end
       end
