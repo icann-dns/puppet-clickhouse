@@ -87,6 +87,19 @@ class clickhouse (
   Integer[0]                                  $default_execution_time,
   Optional[Hash[String[1], Clickhouse::User]] $users,
 ) {
+  apt::source { 'clickhouse':
+    location => 'http://repo.yandex.ru/clickhouse/deb/stable',
+    release  => 'main/',
+    repos    => '',
+    key      => {
+      id     => '9EBB357BC2B0876A774500C7C8F1E19FE0C56BD4',
+      server => 'hkp://keyserver.ubuntu.com:80',
+    },
+    include  => {
+      src => false,
+      deb => true,
+    },
+  }
   ensure_packages([$package])
   if $dictionaries_config_source {
     file {$conf_dir:
