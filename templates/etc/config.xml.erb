@@ -108,8 +108,8 @@
   </remote_servers>
     <zookeeper>
      <%- if @zookeeper_servers -%>
-        <%- @zookeeper_servers.each do |server_addr, index| -%>
-            <node index="<%= index %>">
+        <%- @zookeeper_servers.each do |server_addr| -%>
+            <node>
                 <host><%= server_addr %></host>
                 <port><%= @zookeeper_port %></port>
             </node>
