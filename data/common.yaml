@@ -30,7 +30,7 @@ clickhouse::interserver_http_port: 9009
 clickhouse::interserver_http_host: ~
 clickhouse::listen_hosts:
   - '127.0.0.1'
-  - '::'
+  - '::1'
 clickhouse::mark_cache_size: 5368709120
 clickhouse::max_connections: 4096
 clickhouse::keep_alive_timeout: 3
