@@ -1,6 +1,6 @@
 {
   "name": "icann-clickhouse",
-  "version": "0.2.0",
+  "version": "0.2.3",
   "author": "john.bond@icann.org",
   "summary": "Module to install and manage clickhouse",
   "license": "Apache-2.0",

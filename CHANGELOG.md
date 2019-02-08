@@ -1,5 +1,8 @@
 # Changelog
 
+## Release 0.2.3
+* correct spelling of wieght
+
 ## Release 0.2.0
 * add ability to add multiple users
 
