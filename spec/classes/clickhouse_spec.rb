@@ -603,7 +603,7 @@ describe 'clickhouse' do
               remotes: {
                 'multi_shard' => [
                   {
-                    'wieght' => 1,
+                    'weight' => 1,
                     'replicas' => [
                       {
                         'host' => 'rep1.example.com',
@@ -616,7 +616,7 @@ describe 'clickhouse' do
                     ],
                   },
                   {
-                    'wieght' => 2,
+                    'weight' => 2,
                     'internal_replication' => true,
                     'replicas' => [
                       {
@@ -646,7 +646,7 @@ describe 'clickhouse' do
                 <remote_servers>
                 \s+<multi_shard>
                 \s+<shard>
-                \s+<wieght>1</wieght>
+                \s+<weight>1</weight>
                 \s+<replica>
                 \s+<host>rep1.example.com</host>
                 \s+<port>9001</port>
@@ -657,7 +657,7 @@ describe 'clickhouse' do
                 \s+</replica>
                 \s+</shard>
                 \s+<shard>
-                \s+<wieght>2</wieght>
+                \s+<weight>2</weight>
                 \s+<internal_replication>true</internal_replication>
                 \s+<replica>
                 \s+<host>rep2.example.com</host>
