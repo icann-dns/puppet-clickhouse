@@ -1,12 +1,8 @@
 # @summary module to install and configure clickhouse server
 #
-# @param password_sha256 default SHA256 password hash to use
 # @param package clieckhouse server package to install
-# @param owner owner to use for file permissions
-# @param group group to use for file permissions
 # @param conf_dir main config directory
-# @param users_d users config directory
-# @param config_d additional config directory
+#
 class clickhouse (
   Stdlib::Unixpath                            $conf_dir,
   String[1]                                   $package,

@@ -80,7 +80,7 @@ clickhouse::format_schema_path: /var/lib/clickhouse/format_schemas
 clickhouse::disable_internal_dns_cache: false
 clickhouse::default_password: ''
 clickhouse::default_networks:
-  - '::/00'
+  - '::/0'
 clickhouse::default_profile: default
 clickhouse::default_quota: default
 clickhouse::default_duration: 3600
