@@ -21,7 +21,7 @@ The following parameters are available in the `clickhouse` class.
 
 Data type: `String[1]`
 
-clieckhouse server package to install
+clickhouse server package to install
 
 ##### `conf_dir`
 

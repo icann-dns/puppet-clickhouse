@@ -1,6 +1,6 @@
 # @summary module to install and configure clickhouse server
 #
-# @param package clieckhouse server package to install
+# @param package clickhouse server package to install
 # @param conf_dir main config directory
 #
 class clickhouse (
