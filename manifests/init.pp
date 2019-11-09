@@ -82,6 +82,8 @@ class clickhouse (
   Integer[0]                                  $default_read_rows,
   Integer[0]                                  $default_execution_time,
   Optional[Hash[String[1], Clickhouse::User]] $users,
+  Optional[Array[Stdlib::IP::Address]]        $zookeeper_servers,
+  Optional[Integer[0]]                        $zookeeper_port,
 ) {
   ensure_packages([$package])
   if $dictionaries_config_source {
