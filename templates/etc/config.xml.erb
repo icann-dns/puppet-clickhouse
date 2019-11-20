@@ -94,10 +94,10 @@
 		  <secure>1</secure>
       <%- end -%>
       <%- if replica.include?('user') -%>
-          <user><%= @user %></user>
+          <user><%= replica['user'] %></user>
       <%- end -%>
       <%- if replica.include?('password') -%>
-          <password><%= @password %></password>
+          <password><%= replica['password'] %></password>
       <%- end -%>
         </replica>
     <%- end -%>
