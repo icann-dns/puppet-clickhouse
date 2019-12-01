@@ -70,6 +70,7 @@ class clickhouse (
   Optional[String[1]]                         $distributed_ddl_profile,
   Optional[Integer[1]]                        $max_suspicious_broken_parts,
   Optional[Integer[1]]                        $max_table_size_to_drop,
+  Optional[Integer[1]]                        $max_partition_size_to_drop,
   Stdlib::Unixpath                            $format_schema_path,
   Boolean                                     $disable_internal_dns_cache,
   Array[String[1]]                            $default_networks,
