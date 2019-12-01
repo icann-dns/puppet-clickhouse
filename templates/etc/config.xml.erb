@@ -157,6 +157,9 @@
 <%- if @max_table_size_to_drop -%>
   <max_table_size_to_drop><%= @max_table_size_to_drop %></max_table_size_to_drop>
 <%- end -%>
+<%- if @max_partition_size_to_drop -%>
+  <max_partition_size_to_drop><%= @max_partition_size_to_drop %></max_partition_size_to_drop>
+<%- end -%>
   <format_schema_path><%= trailing_slash(@format_schema_path) %></format_schema_path>
 <%- if @disable_internal_dns_cache -%>
   <disable_internal_dns_cache>1</disable_internal_dns_cache>
