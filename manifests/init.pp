@@ -91,17 +91,20 @@ class clickhouse (
       source  => $dictionaries_config_source,
       recurse => remote,
       notify  => Service[$service],
+      require => Package[$package],
     }
   }
   file {"${conf_dir}/users.xml":
     ensure  => file,
     content => template('clickhouse/etc/users.xml.erb'),
     notify  => Service[$service],
+    require => Package[$package],
   }
   file {"${conf_dir}/config.xml":
     ensure  => file,
     content => template('clickhouse/etc/config.xml.erb'),
     notify  => Service[$service],
+    require => Package[$package],
   }
   service {$service:
     ensure => running,
