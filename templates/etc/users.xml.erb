@@ -55,6 +55,11 @@
       </networks>
       <profile><%= config.fetch('profile', 'default') %></profile>
       <quota><%= config.fetch('quota', 'default') %></quota>
+  <%- if config['allow_db'] -%>
+      <allow_databases>
+            <database><%= config['allow_db'] %></database>
+      </allow_databases>
+<%- end -%>
     <%= "</#{user}>" %>
 <%- end -%>
   </users>
