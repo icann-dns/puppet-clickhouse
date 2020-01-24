@@ -35,7 +35,7 @@
           <databases>
   <%- @default_filter.each_pair do |database, databasefilter| -%>
             <<%= database %>>
-    <%- @databasefilter.each do |filter| -%>
+    <%- databasefilter.each do |filter| -%>
               <<%= filter['table'] %>>
                 <filter><%= filter['tablefilter'] %></filter>
               </<%= filter['table'] %>>
