@@ -35,12 +35,10 @@
           <databases>
   <%- @default_filter.each_pair do |database, databasefilter| -%>
             <<%= database %>>
-    <%- @databasefilter.each_pair do |table, tablefilter| -%>
-              <<%= table %>>
-      <%- @tablefilter.each do |filter| -%>
-                <filter><%= filter %></filter>
-      <%- end -%>
-              </<%= table %>>
+    <%- @databasefilter.each do |filter| -%>
+              <<%= filter['table'] %>>
+                <filter><%= filter['tablefilter'] %></filter>
+              </<%= filter['table'] %>>
     <%- end -%>
             </<%= database %>>
   <%- end -%>
