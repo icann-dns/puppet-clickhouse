@@ -77,7 +77,7 @@ class clickhouse (
   String[1]                                   $default_profile,
   String[1]                                   $default_quota,
   Optional[Array[String[1]]]                  $default_allow_databases,
-  Optional[DatabaseFilter]                    $default_filter,
+  Optional[Clickhouse::Database_filter]       $default_filter,
   Integer[0]                                  $default_duration,
   Integer[0]                                  $default_queries,
   Integer[0]                                  $default_errors,
