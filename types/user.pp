@@ -3,5 +3,5 @@ type Clickhouse::User = Struct[{
   networks => Array[String[1]],
   profile  => Optional[String[1]],
   quota    => Optional[String[1]],
-  allow_db => Optional[String[1]],
+  allow_db => Optional[Array[String[1]]],
 }]

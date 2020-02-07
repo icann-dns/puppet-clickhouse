@@ -57,7 +57,9 @@
       <quota><%= config.fetch('quota', 'default') %></quota>
   <%- if config['allow_db'] -%>
       <allow_databases>
-        <database><%= config['allow_db'] %></database>
+      <%- config['allow_db'].each do |db| -%>
+        <database><%= db %></database>
+      <%- end -%>
       </allow_databases>
 <%- end -%>
     <%= "</#{user}>" %>
