@@ -49,6 +49,8 @@
     <%= "<#{user}>" %>
       <%- if config['password'] -%>
       <password><%= config['password'] %></password>
+      <%- else -%>
+      <password></password>
       <%- end -%>
       <networks>
   <%- config['networks'].each do |network| -%>
