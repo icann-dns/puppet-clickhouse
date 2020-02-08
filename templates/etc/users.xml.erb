@@ -47,7 +47,9 @@
     </default>
 <%- @users.each_pair do |user, config| -%>
     <%= "<#{user}>" %>
+      <%- if config['password'] -%
       <password><%= config['password'] %></password>
+      <%- end -%>
       <networks>
   <%- config['networks'].each do |network| -%>
         <ip><%= network %></ip>
