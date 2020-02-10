@@ -84,6 +84,8 @@ clickhouse::default_networks:
   - '::/0'
 clickhouse::default_profile: default
 clickhouse::default_quota: default
+clickhouse::default_allow_databases: ~
+clickhouse::default_filter: ~
 clickhouse::default_duration: 3600
 clickhouse::default_queries: 0
 clickhouse::default_errors: 0

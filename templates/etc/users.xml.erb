@@ -24,10 +24,34 @@
           </networks>
           <profile><%= @default_profile %></profile>
           <quota><%= @default_quota %></quota>
+<%- if @default_allow_databases -%>
+          <allow_databases>
+  <%- @default_allow_databases.each do |database| -%>
+            <database><%= database %></database>
+  <%- end -%>
+          </allow_databases>
+<%- end -%>
+<%- if @default_filter -%>
+          <databases>
+  <%- @default_filter.each_pair do |database, databasefilter| -%>
+            <<%= database %>>
+    <%- databasefilter.each do |filter| -%>
+              <<%= filter['table'] %>>
+                <filter><%= filter['tablefilter'] %></filter>
+              </<%= filter['table'] %>>
+    <%- end -%>
+            </<%= database %>>
+  <%- end -%>
+          </databases>
+<%- end -%>
     </default>
 <%- @users.each_pair do |user, config| -%>
     <%= "<#{user}>" %>
+      <%- if config['password'] -%>
       <password><%= config['password'] %></password>
+      <%- else -%>
+      <password></password>
+      <%- end -%>
       <networks>
   <%- config['networks'].each do |network| -%>
         <ip><%= network %></ip>
@@ -35,6 +59,13 @@
       </networks>
       <profile><%= config.fetch('profile', 'default') %></profile>
       <quota><%= config.fetch('quota', 'default') %></quota>
+  <%- if config['allow_db'] -%>
+      <allow_databases>
+      <%- config['allow_db'].each do |db| -%>
+        <database><%= db %></database>
+      <%- end -%>
+      </allow_databases>
+<%- end -%>
     <%= "</#{user}>" %>
 <%- end -%>
   </users>
