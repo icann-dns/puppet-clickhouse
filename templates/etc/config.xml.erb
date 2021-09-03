@@ -106,7 +106,18 @@
     </<%= remote %>>
 <%- end -%>
   </remote_servers>
+<%- if @zookeeper_servers -%>
+  <zookeeper>
+  <%- @zookeeper_servers.each do |server_addr| -%>
+    <node>
+      <host><%= server_addr %></host>
+      <port><%= @zookeeper_port %></port>
+    </node>
+  <%- end -%>
+  </zookeeper>
+<%- else -%>
   <zookeeper incl="zookeeper-servers" optional="true" />
+<%- end -%>
   <macros incl="macros" optional="true" />
   <builtin_dictionaries_reload_interval><%= @builtin_dictionaries_reload_interval %></builtin_dictionaries_reload_interval>
   <max_session_timeout><%= @max_session_timeout %></max_session_timeout>
