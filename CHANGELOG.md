@@ -1,5 +1,10 @@
 # Changelog
 
+## Release 0.2.7
+* add default profile options
+* add zookeeper config
+* allow management of the package repo
+
 ## Release 0.2.3
 * correct spelling of wieght
 
