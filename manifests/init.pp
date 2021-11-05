@@ -7,6 +7,7 @@ class clickhouse (
   Stdlib::Unixpath                                $conf_dir,
   String[1]                                       $package,
   String[1]                                       $service,
+  Boolean                                         $manage_package_repo,
   Optional[Pattern[/(?i:[a-f\d]+)/]]              $default_password_sha256,
   String[0]                                       $default_password,
   Integer[0]                                      $max_memory_usage,
@@ -92,16 +93,18 @@ class clickhouse (
 ) {
   ensure_packages([$package])
 
-  apt::source { 'clickhouse':
-    location => 'http://repo.yandex.ru/clickhouse/deb/stable',
-    release  => 'main/',
-    repos    => '',
-    key      => {
-      id     => '9EBB357BC2B0876A774500C7C8F1E19FE0C56BD4',
-    },
-    include  => {
-      src => false,
-    },
+  if $manage_package_repo {
+    apt::source { 'clickhouse':
+      location => 'http://repo.yandex.ru/clickhouse/deb/stable',
+      release  => 'main/',
+      repos    => '',
+      key      => {
+        id     => '9EBB357BC2B0876A774500C7C8F1E19FE0C56BD4',
+      },
+      include  => {
+        src => false,
+      },
+    }
   }
 
   if $dictionaries_config_source {
