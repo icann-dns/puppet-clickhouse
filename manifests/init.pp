@@ -11,6 +11,8 @@ class clickhouse (
   String[0]                                       $default_password,
   Integer[0]                                      $max_memory_usage,
   Boolean                                         $use_uncompressed_cache,
+  Boolean                                         $joined_subquery_requires_alias,
+  Enum['deny','local','global','allow']           $distributed_product_mode,
   Clickhouse::Load_balance                        $load_balancing,
   Clickhouse::Log_level                           $log_level,
   Stdlib::Unixpath                                $log_file,
