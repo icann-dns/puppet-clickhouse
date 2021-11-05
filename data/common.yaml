@@ -95,3 +95,5 @@ clickhouse::default_result_rows: 0
 clickhouse::default_read_rows: 0
 clickhouse::default_execution_time: 0
 clickhouse::users: {}
+clickhouse::zookeeper_servers: []
+clickhouse::zookeeper_port: 2181
