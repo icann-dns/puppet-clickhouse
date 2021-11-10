@@ -1,10 +1,13 @@
 clickhouse::conf_dir: /etc/clickhouse-server
 clickhouse::package: clickhouse-server
 clickhouse::service: clickhouse-server
+clickhouse::manage_package_repo: true
 clickhouse::default_password_sha256: ~
 clickhouse::max_memory_usage: 10000000000
 clickhouse::use_uncompressed_cache: false
 clickhouse::load_balancing: random
+clickhouse::joined_subquery_requires_alias: true
+clickhouse::distributed_product_mode: deny
 clickhouse::log_level: trace
 clickhouse::log_file: /var/log/clickhouse-server/clickhouse-server.log
 clickhouse::errorlog_file: /var/log/clickhouse-server/clickhouse-server.err.log
@@ -93,3 +96,5 @@ clickhouse::default_result_rows: 0
 clickhouse::default_read_rows: 0
 clickhouse::default_execution_time: 0
 clickhouse::users: {}
+clickhouse::zookeeper_servers: ~
+clickhouse::zookeeper_port: 2181

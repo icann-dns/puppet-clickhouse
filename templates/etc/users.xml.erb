@@ -5,6 +5,8 @@
       <max_memory_usage><%= @max_memory_usage %></max_memory_usage>
       <use_uncompressed_cache><% if @use_uncompressed_cache %>1<% else %>0<% end %></use_uncompressed_cache>
       <load_balancing><%= @load_balancing %></load_balancing>
+      <joined_subquery_requires_alias><% if @joined_subquery_requires_alias %>1<% else %>0<% end %></joined_subquery_requires_alias>
+      <distributed_product_mode><%= @distributed_product_mode %></distributed_product_mode>
     </default>
     <readonly>
       <readonly>1</readonly>

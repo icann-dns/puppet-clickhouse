@@ -7,10 +7,13 @@ class clickhouse (
   Stdlib::Unixpath                                $conf_dir,
   String[1]                                       $package,
   String[1]                                       $service,
+  Boolean                                         $manage_package_repo,
   Optional[Pattern[/(?i:[a-f\d]+)/]]              $default_password_sha256,
   String[0]                                       $default_password,
   Integer[0]                                      $max_memory_usage,
   Boolean                                         $use_uncompressed_cache,
+  Boolean                                         $joined_subquery_requires_alias,
+  Enum['deny','local','global','allow']           $distributed_product_mode,
   Clickhouse::Load_balance                        $load_balancing,
   Clickhouse::Log_level                           $log_level,
   Stdlib::Unixpath                                $log_file,
@@ -85,8 +88,25 @@ class clickhouse (
   Integer[0]                                      $default_read_rows,
   Integer[0]                                      $default_execution_time,
   Optional[Hash[String[1], Clickhouse::User]]     $users,
+  Optional[Array[Stdlib::IP::Address]]            $zookeeper_servers,
+  Integer[0]                                      $zookeeper_port,
 ) {
   ensure_packages([$package])
+
+  if $manage_package_repo {
+    apt::source { 'clickhouse':
+      location => 'http://repo.yandex.ru/clickhouse/deb/stable',
+      release  => 'main/',
+      repos    => '',
+      key      => {
+        id     => '9EBB357BC2B0876A774500C7C8F1E19FE0C56BD4',
+      },
+      include  => {
+        src => false,
+      },
+    }
+  }
+
   if $dictionaries_config_source {
     file {$conf_dir:
       ensure  => directory,
