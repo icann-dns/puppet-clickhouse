@@ -1,7 +1,7 @@
 {
   "name": "icann-clickhouse",
-  "version": "0.2.7",
-  "author": "john.bond@icann.org",
+  "version": "0.2.8",
+  "author": "noc@dns.icann.org",
   "summary": "Module to install and manage clickhouse",
   "license": "Apache-2.0",
   "source": "https://github.com/icann-dns/puppet-clickhouse",
@@ -22,7 +22,7 @@
       "operatingsystemrelease": [
         "16.04",
         "18.04",
-        "20.04",
+        "20.04"
       ]
     }
   ],

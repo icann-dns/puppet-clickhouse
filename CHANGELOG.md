@@ -1,5 +1,8 @@
 # Changelog
 
+## Release 0.2.8
+* misc typo fix on metadata.json
+
 ## Release 0.2.7
 * add default profile options
 * add zookeeper config
