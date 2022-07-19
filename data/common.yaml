@@ -8,6 +8,7 @@ clickhouse::use_uncompressed_cache: false
 clickhouse::load_balancing: random
 clickhouse::joined_subquery_requires_alias: true
 clickhouse::distributed_product_mode: deny
+clickhouse::prefer_localhost_replica: true
 clickhouse::log_level: trace
 clickhouse::log_file: /var/log/clickhouse-server/clickhouse-server.log
 clickhouse::errorlog_file: /var/log/clickhouse-server/clickhouse-server.err.log
