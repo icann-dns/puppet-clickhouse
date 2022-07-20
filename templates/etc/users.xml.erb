@@ -7,6 +7,7 @@
       <load_balancing><%= @load_balancing %></load_balancing>
       <joined_subquery_requires_alias><% if @joined_subquery_requires_alias %>1<% else %>0<% end %></joined_subquery_requires_alias>
       <distributed_product_mode><%= @distributed_product_mode %></distributed_product_mode>
+      <prefer_localhost_replica><% if @prefer_localhost_replica %>1<% else %>0<% end %></prefer_localhost_replica>
     </default>
     <readonly>
       <readonly>1</readonly>

@@ -1,5 +1,8 @@
 # Changelog
 
+## Release 0.2.9
+* add default profile option prefer_localhost_replica
+
 ## Release 0.2.8
 * misc typo fix on metadata.json
 
