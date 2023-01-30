@@ -91,6 +91,8 @@ class clickhouse (
   Optional[Hash[String[1], Clickhouse::User]]     $users,
   Optional[Array[Stdlib::IP::Address]]            $zookeeper_servers,
   Integer[0]                                      $zookeeper_port,
+  Stdlib::Unixpath                                $top_level_domains_path,
+  String[1]                                       $public_suffix_list_name,
 ) {
   ensure_packages([$package])
 
