@@ -1,5 +1,8 @@
 # Changelog
 
+## Release 0.3.0
+* add top level domains options
+
 ## Release 0.2.9
 * add default profile option prefer_localhost_replica
 

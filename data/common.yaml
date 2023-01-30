@@ -99,3 +99,5 @@ clickhouse::default_execution_time: 0
 clickhouse::users: {}
 clickhouse::zookeeper_servers: ~
 clickhouse::zookeeper_port: 2181
+clickhouse::top_level_domains_path: /var/lib/clickhouse/top_level_domains
+clickhouse::public_suffix_list_name: public_suffix_list.dat
