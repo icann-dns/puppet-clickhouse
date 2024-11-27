@@ -93,6 +93,7 @@ class clickhouse (
   Integer[0]                                      $zookeeper_port,
   Stdlib::Unixpath                                $top_level_domains_path,
   String[1]                                       $public_suffix_list_name,
+  Boolean                                         $enable_named_columns_in_function_tuple,
 ) {
   ensure_packages([$package])
 
