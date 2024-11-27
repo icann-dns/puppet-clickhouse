@@ -2,6 +2,7 @@
 <yandex>
   <profiles>
     <default>
+      <enable_named_columns_in_function_tuple><% if @enable_named_columns_in_function_tuple %>1<% else %>0<% end %></enable_named_columns_in_function_tuple>
       <max_memory_usage><%= @max_memory_usage %></max_memory_usage>
       <use_uncompressed_cache><% if @use_uncompressed_cache %>1<% else %>0<% end %></use_uncompressed_cache>
       <load_balancing><%= @load_balancing %></load_balancing>
