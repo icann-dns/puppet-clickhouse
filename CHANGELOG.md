@@ -1,5 +1,8 @@
 # Changelog
 
+## Release 0.3.1
+* backwards incompatible extension to tuple behavior
+
 ## Release 0.3.0
 * add top level domains options
 

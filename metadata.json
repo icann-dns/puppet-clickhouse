@@ -1,6 +1,6 @@
 {
   "name": "icann-clickhouse",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "author": "noc@dns.icann.org",
   "summary": "Module to install and manage clickhouse",
   "license": "Apache-2.0",
