@@ -1,7 +1,95 @@
 # @summary module to install and configure clickhouse server
 #
-# @param package clickhouse server package to install
-# @param conf_dir main config directory
+# @param conf_dir path to configuration directory
+# @param package package name
+# @param service service name
+# @param manage_package_repo whether to manage package repository
+# @param default_password_sha256 default password sha256
+# @param default_password default password
+# @param max_memory_usage maximum memory usage
+# @param use_uncompressed_cache use uncompressed cache
+# @param joined_subquery_requires_alias joined subquery requires alias
+# @param distributed_product_mode distributed product mode
+# @param prefer_localhost_replica prefer localhost replica
+# @param load_balancing load balancing
+# @param log_level log level
+# @param log_file log file
+# @param errorlog_file error log file
+# @param log_rotate_size log rotate size
+# @param log_rotate_count log rotate count
+# @param display_name display name
+# @param http_port http port
+# @param tcp_port tcp port
+# @param https_port https port
+# @param tcp_secure_port tcp secure port
+# @param certificate_file certificate file
+# @param private_key_file private key file
+# @param dh_params_file dh params file
+# @param verification_mode verification mode
+# @param load_default_ca_file load default ca file
+# @param cache_sessions cache sessions
+# @param disable_protocols disable protocols
+# @param prefer_server_ciphers prefer server ciphers
+# @param allow_self_signed_client allow self signed client
+# @param interserver_http_port interserver http port
+# @param interserver_http_host interserver http host
+# @param listen_hosts listen hosts
+# @param max_connections max connections
+# @param mark_cache_size mark cache size
+# @param keep_alive_timeout keep alive timeout
+# @param max_concurrent_queries max concurrent queries
+# @param uncompressed_cache_size uncompressed cache size
+# @param data_path data path
+# @param tmp_path tmp path
+# @param user_files_path user files path
+# @param timezone timezone
+# @param umask umask
+# @param remotes remotes
+# @param builtin_dictionaries_reload_interval builtin dictionaries reload interval
+# @param max_session_timeout max session timeout
+# @param default_session_timeout default session timeout
+# @param query_log_db query log db
+# @param query_log_table query log table
+# @param query_log_partition_by query log partition by
+# @param query_log_flush_interval query log flush interval
+# @param part_log_enable part log enable
+# @param part_log_db part log db
+# @param part_log_table part log table
+# @param part_log_flush_interval part log flush interval
+# @param path_to_regions_hierarchy_file path to regions hierarchy file
+# @param path_to_regions_names_files path to regions names files
+# @param dictionaries_config dictionaries config
+# @param dictionaries_config_source dictionaries config source
+# @param compression_enable compression enable
+# @param compression_min_part_size compression min part size
+# @param compression_min_part_size_ratio compression min part size ratio
+# @param compression_method compression method
+# @param compression_level compression level
+# @param distributed_ddl_enable distributed ddl enable
+# @param distributed_ddl_path distributed ddl path
+# @param distributed_ddl_profile distributed ddl profile
+# @param max_suspicious_broken_parts max suspicious broken parts
+# @param max_table_size_to_drop max table size to drop
+# @param max_partition_size_to_drop max partition size to drop
+# @param format_schema_path format schema path
+# @param disable_internal_dns_cache disable internal dns cache
+# @param default_networks default networks
+# @param default_profile default profile
+# @param default_quota default quota
+# @param default_allow_databases default allow databases
+# @param default_filter default filter
+# @param default_duration default duration
+# @param default_queries default queries
+# @param default_errors default errors
+# @param default_result_rows default result rows
+# @param default_read_rows default read rows
+# @param default_execution_time default execution time
+# @param users users
+# @param zookeeper_servers zookeeper servers
+# @param zookeeper_port zookeeper port
+# @param top_level_domains_path top level domains path
+# @param public_suffix_list_name public suffix list name
+# @param enable_named_columns_in_function_tuple enable named columns in function tuple
 #
 class clickhouse (
   Stdlib::Unixpath                                $conf_dir,
@@ -112,7 +200,7 @@ class clickhouse (
   }
 
   if $dictionaries_config_source {
-    file {$conf_dir:
+    file { $conf_dir:
       ensure  => directory,
       source  => $dictionaries_config_source,
       recurse => remote,
@@ -120,19 +208,19 @@ class clickhouse (
       require => Package[$package],
     }
   }
-  file {"${conf_dir}/users.xml":
+  file { "${conf_dir}/users.xml":
     ensure  => file,
     content => template('clickhouse/etc/users.xml.erb'),
     notify  => Service[$service],
     require => Package[$package],
   }
-  file {"${conf_dir}/config.xml":
+  file { "${conf_dir}/config.xml":
     ensure  => file,
     content => template('clickhouse/etc/config.xml.erb'),
     notify  => Service[$service],
     require => Package[$package],
   }
-  service {$service:
+  service { $service:
     ensure => running,
     enable => true,
   }
