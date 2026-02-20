@@ -1,6 +1,9 @@
 # Changelog
 
 ## Release 0.4.1
+* Fix bug in dependencies
+
+## Release 0.4.1
 * Fix bug in packages
 
 ## Release 0.4.0
