@@ -1,5 +1,8 @@
 # Changelog
 
+## Release 0.4.1
+* Fix bug in packages
+
 ## Release 0.4.0
 * Add clickhouse-odbc-bridge
 
