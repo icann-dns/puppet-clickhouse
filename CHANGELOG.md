@@ -1,5 +1,8 @@
 # Changelog
 
+## Release 0.4.0
+* Add clickhouse-odbc-bridge
+
 ## Release 0.3.1
 * backwards incompatible extension to tuple behavior
 
