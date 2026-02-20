@@ -1,7 +1,7 @@
 # @summary module to install and configure clickhouse server
 #
 # @param conf_dir path to configuration directory
-# @param package package name
+# @param packages package name
 # @param service service name
 # @param manage_package_repo whether to manage package repository
 # @param default_password_sha256 default password sha256
@@ -93,7 +93,7 @@
 #
 class clickhouse (
   Stdlib::Unixpath                                $conf_dir,
-  String[1]                                       $package,
+  Array[String[1]]                                $packages,
   String[1]                                       $service,
   Boolean                                         $manage_package_repo,
   Optional[Pattern[/(?i:[a-f\d]+)/]]              $default_password_sha256,
