@@ -183,7 +183,7 @@ class clickhouse (
   String[1]                                       $public_suffix_list_name,
   Boolean                                         $enable_named_columns_in_function_tuple,
 ) {
-  ensure_packages([$package])
+  ensure_packages([$packages])
 
   if $manage_package_repo {
     apt::source { 'clickhouse':
