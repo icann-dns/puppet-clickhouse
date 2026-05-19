@@ -88,6 +88,7 @@
 # @param zookeeper_port zookeeper port
 # @param top_level_domains_path top level domains path
 # @param public_suffix_list_name public suffix list name
+# @param roles a hash of roles and the grants provided
 # @param enable_named_columns_in_function_tuple enable named columns in function tuple
 #
 class clickhouse (
@@ -179,6 +180,7 @@ class clickhouse (
   Stdlib::Unixpath                                $top_level_domains_path = '/var/lib/clickhouse/top_level_domains',
   String[1]                                       $public_suffix_list_name = 'public_suffix_list.dat',
   Boolean                                         $enable_named_columns_in_function_tuple = false,
+  Hash[String[1], Array[String[1]]]               $roles = {},
   Hash[String[1], Clickhouse::Remote]             $remotes = {
     'test_shard_localhost' => [{ 'replicas' => [{ 'host' => 'localhost', 'port' => 9000, },], },],
     'test_shard_localhost_secure' => [{ 'replicas' => [{ 'host'   => 'localhost', 'port'   => 9000, 'secure' => true, },], },],

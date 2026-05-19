@@ -6,4 +6,5 @@ type Clickhouse::User = Struct[{
     quota    => Optional[String[1]],
     allow_db => Optional[Array[String[1]]],
     access_management => Optional[Boolean],
+    roles => Optional[Array[String[1]]],
 }]

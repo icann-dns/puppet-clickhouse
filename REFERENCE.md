@@ -117,6 +117,7 @@ The following parameters are available in the `clickhouse` class:
 * [`zookeeper_port`](#-clickhouse--zookeeper_port)
 * [`top_level_domains_path`](#-clickhouse--top_level_domains_path)
 * [`public_suffix_list_name`](#-clickhouse--public_suffix_list_name)
+* [`roles`](#-clickhouse--roles)
 * [`enable_named_columns_in_function_tuple`](#-clickhouse--enable_named_columns_in_function_tuple)
 
 ##### <a name="-clickhouse--conf_dir"></a>`conf_dir`
@@ -830,6 +831,14 @@ public suffix list name
 
 Default value: `'public_suffix_list.dat'`
 
+##### <a name="-clickhouse--roles"></a>`roles`
+
+Data type: `Hash[String[1], Array[String[1]]]`
+
+a hash of roles and the grants provided
+
+Default value: `{}`
+
 ##### <a name="-clickhouse--enable_named_columns_in_function_tuple"></a>`enable_named_columns_in_function_tuple`
 
 Data type: `Boolean`
@@ -920,6 +929,8 @@ Struct[{
     profile  => Optional[String[1]],
     quota    => Optional[String[1]],
     allow_db => Optional[Array[String[1]]],
+    access_management => Optional[Boolean],
+    roles => Optional[Array[String[1]]],
 }]
 ```
 
