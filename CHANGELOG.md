@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-05-19 0.5.0
+* Add support for roles
+* some minor fixes
+
 ## Release 0.4.1
 * Fix bug in dependencies
 
