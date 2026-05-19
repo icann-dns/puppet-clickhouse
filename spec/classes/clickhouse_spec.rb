@@ -176,7 +176,7 @@ describe 'clickhouse' do
           it { is_expected.to contain_file('/foo/bar/config.xml') }
         end
         context 'package' do
-          before(:each) { params.merge!(package: 'foobar') }
+          before(:each) { params.merge!(packages: ['foobar']) }
           it { is_expected.to compile }
           it { is_expected.to contain_package('foobar') }
         end

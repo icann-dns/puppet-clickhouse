@@ -3,7 +3,6 @@
 # @param conf_dir path to configuration directory
 # @param packages package name
 # @param service service name
-# @param manage_package_repo whether to manage package repository
 # @param default_password_sha256 default password sha256
 # @param default_password default password
 # @param max_memory_usage maximum memory usage
@@ -95,7 +94,6 @@ class clickhouse (
   Stdlib::Unixpath                                $conf_dir,
   Array[String[1]]                                $packages,
   String[1]                                       $service,
-  Boolean                                         $manage_package_repo,
   Optional[Pattern[/(?i:[a-f\d]+)/]]              $default_password_sha256,
   String[0]                                       $default_password,
   Integer[0]                                      $max_memory_usage,
@@ -181,24 +179,9 @@ class clickhouse (
   Integer[0]                                      $zookeeper_port,
   Stdlib::Unixpath                                $top_level_domains_path,
   String[1]                                       $public_suffix_list_name,
-  Boolean                                         $enable_named_columns_in_function_tuple,
+  Boolean                                         $enable_named_columns_in_function_tuple = false,
 ) {
   ensure_packages($packages)
-
-  if $manage_package_repo {
-    apt::source { 'clickhouse':
-      location => 'http://repo.yandex.ru/clickhouse/deb/stable',
-      release  => 'main/',
-      repos    => '',
-      key      => {
-        id     => '9EBB357BC2B0876A774500C7C8F1E19FE0C56BD4',
-      },
-      include  => {
-        src => false,
-      },
-      before   => Package[$packages],
-    }
-  }
 
   if $dictionaries_config_source {
     file { $conf_dir:
