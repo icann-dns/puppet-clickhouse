@@ -81,7 +81,7 @@ describe 'clickhouse' do
           ).with_content(
             %r{<listen_host>127.0.0.1</listen_host>},
           ).with_content(
-            %r{<listen_host>::</listen_host>},
+            %r{<listen_host>::1</listen_host>},
           ).with_content(
             %r{<max_connections>4096</max_connections>},
           ).with_content(
@@ -667,8 +667,8 @@ describe 'clickhouse' do
                 \s+<replica>
                 \s+<host>rep3.example.com</host>
                 \s+<port>9001</port>
-                \s+<user></user>
-                \s+<password></password>
+                \s+<user>username</user>
+                \s+<password>password</password>
                 \s+</replica>
                 \s+</shard>
                 \s+</multi_shard>
