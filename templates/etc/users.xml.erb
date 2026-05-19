@@ -14,6 +14,21 @@
       <readonly>1</readonly>
     </readonly>
   </profiles>
+<%- unless @roles.empty? -%>
+  <roles>
+  <%- @roles.each_pair do |role, grants| -%>
+  <%= "<#{role}>" %>
+    <grants>
+    <%- grants.each do |grant| -%>
+      <grant>
+        <query><%= grant %></query>
+      </grant>
+    <%- end -%>
+    </grants>
+  <%= "</#{role}>" %>
+  <%- end -%>
+  </roles>
+<%- end -%>
   <users>
      <default>
 <%- if @default_password_sha256 -%>
@@ -51,18 +66,24 @@
     </default>
 <%- @users.each_pair do |user, config| -%>
     <%= "<#{user}>" %>
-      <%- if config['password'] -%>
-      <password><%= config['password'] %></password>
-      <%- else -%>
-      <password></password>
-      <%- end -%>
+      <password><%= config.fetch('password', '') %></password>
       <networks>
   <%- config['networks'].each do |network| -%>
         <ip><%= network %></ip>
   <%- end -%>
       </networks>
+  <%- if config['access_management'] -%>
+      <access_management>1</access_management>
+  <%- end -%>
       <profile><%= config.fetch('profile', 'default') %></profile>
       <quota><%= config.fetch('quota', 'default') %></quota>
+  <%- if config['roles'] -%>
+      <grants>
+    <%- config['roles'].each do |role| -%>
+        <query>GRANT <%= role %></query>
+    <%- end -%>
+      </grants>
+  <%- end -%>
   <%- if config['allow_db'] -%>
       <allow_databases>
       <%- config['allow_db'].each do |db| -%>
