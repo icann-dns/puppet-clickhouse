@@ -881,11 +881,11 @@ Alias of
 
 ```puppet
 Struct[{
-    host     => Stdlib::Host,
-    port     => Stdlib::Port,
-    secure   => Optional[Boolean],
-    user     => Optional[String[1]],
-    password => Optional[String[1]],
+  host     => Stdlib::Host,
+  port     => Stdlib::Port,
+  secure   => Optional[Boolean],
+  user     => Optional[String[1]],
+  password => Optional[String[1]],
 }]
 ```
 
@@ -897,9 +897,9 @@ Alias of
 
 ```puppet
 Struct[{
-    weight               => Optional[Integer[1]],
-    internal_replication => Optional[Boolean],
-    replicas             => Array[Clickhouse::Replica],
+  weight               => Optional[Integer[1]],
+  internal_replication => Optional[Boolean],
+  replicas             => Array[Clickhouse::Replica],
 }]
 ```
 
@@ -911,8 +911,8 @@ Alias of
 
 ```puppet
 Struct[{
-    table       => String[1],
-    tablefilter => String[1],
+  table       => String[1],
+  tablefilter => String[1],
 }]
 ```
 
@@ -924,13 +924,13 @@ Alias of
 
 ```puppet
 Struct[{
-    password => Optional[String[1]],
-    networks => Array[String[1]],
-    profile  => Optional[String[1]],
-    quota    => Optional[String[1]],
-    allow_db => Optional[Array[String[1]]],
-    access_management => Optional[Boolean],
-    roles => Optional[Array[String[1]]],
+  password => Optional[String[1]],
+  networks => Array[String[1]],
+  profile  => Optional[String[1]],
+  quota    => Optional[String[1]],
+  allow_db => Optional[Array[String[1]]],
+  access_management => Optional[Boolean],
+  roles => Optional[Array[String[1]]],
 }]
 ```
 
