@@ -51,16 +51,15 @@
     </default>
 <%- @users.each_pair do |user, config| -%>
     <%= "<#{user}>" %>
-      <%- if config['password'] -%>
-      <password><%= config['password'] %></password>
-      <%- else -%>
-      <password></password>
-      <%- end -%>
+      <password><%= config.fetch('password', '') %></password>
       <networks>
   <%- config['networks'].each do |network| -%>
         <ip><%= network %></ip>
   <%- end -%>
       </networks>
+  <%- if config['access_management'] -%>
+      <access_management>1</access_management>
+  <%- end -%>
       <profile><%= config.fetch('profile', 'default') %></profile>
       <quota><%= config.fetch('quota', 'default') %></quota>
   <%- if config['allow_db'] -%>

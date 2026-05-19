@@ -196,10 +196,11 @@ class clickhouse (
     }
   }
   file { "${conf_dir}/users.xml":
-    ensure  => file,
-    content => template('clickhouse/etc/users.xml.erb'),
-    notify  => Service[$service],
-    require => Package[$packages],
+    ensure    => file,
+    content   => template('clickhouse/etc/users.xml.erb'),
+    show_diff => false,
+    notify    => Service[$service],
+    require   => Package[$packages],
   }
   file { "${conf_dir}/config.xml":
     ensure  => file,
