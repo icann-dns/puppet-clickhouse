@@ -1,3 +1,4 @@
+# @summary Type definition for Clickhouse::Replica
 type Clickhouse::Replica = Struct[{
     host     => Stdlib::Host,
     port     => Stdlib::Port,

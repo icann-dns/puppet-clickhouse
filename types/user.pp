@@ -1,3 +1,4 @@
+# @summary Type definition for Clickhouse::User
 type Clickhouse::User = Struct[{
     password => Optional[String[1]],
     networks => Array[String[1]],
