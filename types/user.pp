@@ -8,6 +8,6 @@ type Clickhouse::User = Struct[
     allow_db          => Optional[Array[String[1]]],
     access_management => Optional[Boolean],
     roles             => Optional[Array[String[1]]],
-    db_filters        => Optional[Hash[String[1], String[1]]],
+    db_filters        => Optional[Hash[String[1], Hash[String[1], String[1]]]],
   }
 ]

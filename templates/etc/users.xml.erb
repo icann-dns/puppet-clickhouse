@@ -37,40 +37,6 @@
   </roles>
 <%- end -%>
   <users>
-     <default>
-<%- if @default_password_sha256 -%>
-          <password_sha256_hex><%= @default_password_sha256 %></password_sha256_hex>
-<%- else -%>
-          <password><%= @default_password %></password>
-<%- end -%>
-          <networks>
-<%- @default_networks.each do |network| -%>
-            <ip><%= network %></ip>
-<%- end -%>
-          </networks>
-          <profile><%= @default_profile %></profile>
-          <quota><%= @default_quota %></quota>
-<%- if @default_allow_databases -%>
-          <allow_databases>
-  <%- @default_allow_databases.each do |database| -%>
-            <database><%= database %></database>
-  <%- end -%>
-          </allow_databases>
-<%- end -%>
-<%- if @default_filter -%>
-          <databases>
-  <%- @default_filter.each_pair do |database, databasefilter| -%>
-            <<%= database %>>
-    <%- databasefilter.each do |filter| -%>
-              <<%= filter['table'] %>>
-                <filter><%= filter['tablefilter'] %></filter>
-              </<%= filter['table'] %>>
-    <%- end -%>
-            </<%= database %>>
-  <%- end -%>
-          </databases>
-<%- end -%>
-    </default>
 <%- @users.each_pair do |user, config| -%>
     <%= "<#{user}>" %>
       <password><%= config.fetch('password', '') %></password>

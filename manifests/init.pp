@@ -3,8 +3,6 @@
 # @param conf_dir path to configuration directory
 # @param packages package name
 # @param service service name
-# @param default_password_sha256 default password sha256
-# @param default_password default password
 # @param log_level log level
 # @param log_file log file
 # @param errorlog_file error log file
@@ -66,11 +64,6 @@
 # @param max_partition_size_to_drop max partition size to drop
 # @param format_schema_path format schema path
 # @param disable_internal_dns_cache disable internal dns cache
-# @param default_networks default networks
-# @param default_profile default profile
-# @param default_quota default quota
-# @param default_allow_databases default allow databases
-# @param default_filter default filter
 # @param users users
 # @param zookeeper_servers zookeeper servers
 # @param zookeeper_port zookeeper port
@@ -85,8 +78,6 @@ class clickhouse (
   Stdlib::Unixpath                                $conf_dir = '/etc/clickhouse-server',
   Array[String[1]]                                $packages = ['clickhouse-server', 'clickhouse-odbc-bridge'],
   String[1]                                       $service = 'clickhouse-server',
-  Optional[Pattern[/(?i:[a-f\d]+)/]]              $default_password_sha256 = undef,
-  String                                          $default_password = '', # lint:ignore:params_empty_string_assignment
   Clickhouse::Log_level                           $log_level = 'trace',
   Stdlib::Unixpath                                $log_file = '/var/log/clickhouse-server/clickhouse-server.log',
   Stdlib::Unixpath                                $errorlog_file = '/var/log/clickhouse-server/clickhouse-server.err.log',
@@ -147,11 +138,6 @@ class clickhouse (
   Optional[Integer]                               $max_partition_size_to_drop = undef,
   Stdlib::Unixpath                                $format_schema_path = '/var/lib/clickhouse/format_schemas',
   Boolean                                         $disable_internal_dns_cache = false,
-  Array[String[1]]                                $default_networks = ['::/0'],
-  String[1]                                       $default_profile = 'default',
-  String[1]                                       $default_quota = 'default',
-  Optional[Array[String[1]]]                      $default_allow_databases = undef,
-  Optional[Hash[String[1],Clickhouse::Db_filter]] $default_filter = undef,
   Hash[String[1], Clickhouse::User]               $users = {},
   Optional[Array[Stdlib::IP::Address]]            $zookeeper_servers = undef,
   Integer[0]                                      $zookeeper_port = 2181,

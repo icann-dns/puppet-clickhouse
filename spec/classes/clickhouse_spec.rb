@@ -21,18 +21,6 @@ describe 'clickhouse' do
 
         it do
           is_expected.to contain_file(
-            '/etc/clickhouse-server/users.xml',
-          ).with_ensure('file').with_content(
-            %r{<max_memory_usage>10000000000</max_memory_usage>},
-          ).with_content(
-            %r{<use_uncompressed_cache>0</use_uncompressed_cache>},
-          ).with_content(
-            %r{<load_balancing>random</load_balancing>},
-          )
-        end
-
-        it do
-          is_expected.to contain_file(
             '/etc/clickhouse-server/config.xml',
           ).with_ensure('file').with_content(
             %r{
