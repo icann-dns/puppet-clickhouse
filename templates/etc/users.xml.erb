@@ -1,19 +1,26 @@
+<%-
+  def parse_value(value)
+    case value
+    when TrueClass, FalseClass
+      value ? '1' : '0'
+    else
+      value
+    end
+  end
+-%>
 <?xml version="1.0"?>
 <yandex>
+<%- unless @profiles.empty? -%>
   <profiles>
-    <default>
-      <enable_named_columns_in_function_tuple><% if @enable_named_columns_in_function_tuple %>1<% else %>0<% end %></enable_named_columns_in_function_tuple>
-      <max_memory_usage><%= @max_memory_usage %></max_memory_usage>
-      <use_uncompressed_cache><% if @use_uncompressed_cache %>1<% else %>0<% end %></use_uncompressed_cache>
-      <load_balancing><%= @load_balancing %></load_balancing>
-      <joined_subquery_requires_alias><% if @joined_subquery_requires_alias %>1<% else %>0<% end %></joined_subquery_requires_alias>
-      <distributed_product_mode><%= @distributed_product_mode %></distributed_product_mode>
-      <prefer_localhost_replica><% if @prefer_localhost_replica %>1<% else %>0<% end %></prefer_localhost_replica>
-    </default>
-    <readonly>
-      <readonly>1</readonly>
-    </readonly>
+  <%- @profiles.each_pair do |profile, config| -%>
+    <%= "<#{profile}>" %>
+    <%- config.each_pair do |key, value| -%>
+      <<%= key %>><%= parse_value(value) %></<%= key %>>
+    <%- end -%>
+    <%= "</#{profile}>" %>
+  <%- end -%>
   </profiles>
+<%- end -%>
 <%- unless @roles.empty? -%>
   <roles>
   <%- @roles.each_pair do |role, grants| -%>

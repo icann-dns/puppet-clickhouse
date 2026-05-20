@@ -5,12 +5,6 @@
 # @param service service name
 # @param default_password_sha256 default password sha256
 # @param default_password default password
-# @param max_memory_usage maximum memory usage
-# @param use_uncompressed_cache use uncompressed cache
-# @param joined_subquery_requires_alias joined subquery requires alias
-# @param distributed_product_mode distributed product mode
-# @param prefer_localhost_replica prefer localhost replica
-# @param load_balancing load balancing
 # @param log_level log level
 # @param log_file log file
 # @param errorlog_file error log file
@@ -89,6 +83,7 @@
 # @param top_level_domains_path top level domains path
 # @param public_suffix_list_name public suffix list name
 # @param roles a hash of roles and the grants provided
+# @param profiles a hash of profiles and their settings
 # @param enable_named_columns_in_function_tuple enable named columns in function tuple
 #
 class clickhouse (
@@ -97,12 +92,6 @@ class clickhouse (
   String[1]                                       $service = 'clickhouse-server',
   Optional[Pattern[/(?i:[a-f\d]+)/]]              $default_password_sha256 = undef,
   String                                          $default_password = '', # lint:ignore:params_empty_string_assignment
-  Integer[0]                                      $max_memory_usage = 10000000000,
-  Boolean                                         $use_uncompressed_cache = false,
-  Boolean                                         $joined_subquery_requires_alias = true,
-  Enum['deny','local','global','allow']           $distributed_product_mode = 'deny',
-  Boolean                                         $prefer_localhost_replica = true,
-  Clickhouse::Load_balance                        $load_balancing = 'random',
   Clickhouse::Log_level                           $log_level = 'trace',
   Stdlib::Unixpath                                $log_file = '/var/log/clickhouse-server/clickhouse-server.log',
   Stdlib::Unixpath                                $errorlog_file = '/var/log/clickhouse-server/clickhouse-server.err.log',
@@ -181,6 +170,7 @@ class clickhouse (
   String[1]                                       $public_suffix_list_name = 'public_suffix_list.dat',
   Boolean                                         $enable_named_columns_in_function_tuple = false,
   Hash[String[1], Array[String[1]]]               $roles = {},
+  Hash[String[1], Clickhouse::Profile]            $profiles = {},
   Hash[String[1], Clickhouse::Remote]             $remotes = {
     'test_shard_localhost' => [{ 'replicas' => [{ 'host' => 'localhost', 'port' => 9000, },], },],
     'test_shard_localhost_secure' => [{ 'replicas' => [{ 'host'   => 'localhost', 'port'   => 9000, 'secure' => true, },], },],
@@ -198,11 +188,12 @@ class clickhouse (
     }
   }
   file { "${conf_dir}/users.xml":
-    ensure    => file,
-    content   => template('clickhouse/etc/users.xml.erb'),
-    show_diff => false,
-    notify    => Service[$service],
-    require   => Package[$packages],
+    ensure  => file,
+    content => template('clickhouse/etc/users.xml.erb'),
+    # TODO: add back in after testing
+    # show_diff => false,
+    notify  => Service[$service],
+    require => Package[$packages],
   }
   file { "${conf_dir}/config.xml":
     ensure  => file,
