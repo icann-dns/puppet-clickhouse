@@ -28,7 +28,7 @@ describe 'clickhouse' do
               <users>\s+
               </users>\s+
             </yandex>
-            }x
+            }x,
           )
         end
 
