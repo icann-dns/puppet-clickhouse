@@ -1,19 +1,26 @@
+<%-
+  def parse_value(value)
+    case value
+    when TrueClass, FalseClass
+      value ? '1' : '0'
+    else
+      value
+    end
+  end
+-%>
 <?xml version="1.0"?>
 <yandex>
+<%- unless @profiles.empty? -%>
   <profiles>
-    <default>
-      <enable_named_columns_in_function_tuple><% if @enable_named_columns_in_function_tuple %>1<% else %>0<% end %></enable_named_columns_in_function_tuple>
-      <max_memory_usage><%= @max_memory_usage %></max_memory_usage>
-      <use_uncompressed_cache><% if @use_uncompressed_cache %>1<% else %>0<% end %></use_uncompressed_cache>
-      <load_balancing><%= @load_balancing %></load_balancing>
-      <joined_subquery_requires_alias><% if @joined_subquery_requires_alias %>1<% else %>0<% end %></joined_subquery_requires_alias>
-      <distributed_product_mode><%= @distributed_product_mode %></distributed_product_mode>
-      <prefer_localhost_replica><% if @prefer_localhost_replica %>1<% else %>0<% end %></prefer_localhost_replica>
-    </default>
-    <readonly>
-      <readonly>1</readonly>
-    </readonly>
+  <%- @profiles.each_pair do |profile, config| -%>
+    <%= "<#{profile}>" %>
+    <%- config.each_pair do |key, value| -%>
+      <<%= key %>><%= parse_value(value) %></<%= key %>>
+    <%- end -%>
+    <%= "</#{profile}>" %>
+  <%- end -%>
   </profiles>
+<%- end -%>
 <%- unless @roles.empty? -%>
   <roles>
   <%- @roles.each_pair do |role, grants| -%>
@@ -30,40 +37,6 @@
   </roles>
 <%- end -%>
   <users>
-     <default>
-<%- if @default_password_sha256 -%>
-          <password_sha256_hex><%= @default_password_sha256 %></password_sha256_hex>
-<%- else -%>
-          <password><%= @default_password %></password>
-<%- end -%>
-          <networks>
-<%- @default_networks.each do |network| -%>
-            <ip><%= network %></ip>
-<%- end -%>
-          </networks>
-          <profile><%= @default_profile %></profile>
-          <quota><%= @default_quota %></quota>
-<%- if @default_allow_databases -%>
-          <allow_databases>
-  <%- @default_allow_databases.each do |database| -%>
-            <database><%= database %></database>
-  <%- end -%>
-          </allow_databases>
-<%- end -%>
-<%- if @default_filter -%>
-          <databases>
-  <%- @default_filter.each_pair do |database, databasefilter| -%>
-            <<%= database %>>
-    <%- databasefilter.each do |filter| -%>
-              <<%= filter['table'] %>>
-                <filter><%= filter['tablefilter'] %></filter>
-              </<%= filter['table'] %>>
-    <%- end -%>
-            </<%= database %>>
-  <%- end -%>
-          </databases>
-<%- end -%>
-    </default>
 <%- @users.each_pair do |user, config| -%>
     <%= "<#{user}>" %>
       <password><%= config.fetch('password', '') %></password>
@@ -90,20 +63,41 @@
         <database><%= db %></database>
       <%- end -%>
       </allow_databases>
-<%- end -%>
-    <%= "</#{user}>" %>
+  <%- end -%>
+  <%- if config['db_filters'] -%>
+      <databases>
+    <%- config['db_filters'].each_pair do |database, databasefilter| -%>
+        <<%= database %>>
+      <%- databasefilter.each_pair do |table, tablefilter| -%>
+          <<%= table %>>
+            <filter><%= tablefilter %></filter>
+          </<%= table %>>
+      <%- end -%>
+        </<%= database %>>
+    <%- end -%>
+      </databases>
+  <%- end -%>
+    </<%= user %>>
 <%- end -%>
   </users>
+<%- unless @quotas.empty? -%>
   <quotas>
-    <default>
+  <%- @quotas.each_pair do |quota, config| -%>
+    <%= "<#{quota}>" %>
+    <%- if config.fetch('keyed', nil) == 'client_key' -%>
+      <keyed />
+    <%- elsif config.fetch('keyed', nil) == 'ip_address' -%>
+      <keyed_by_ip />
+    <%- end -%>
+    <%- config['intervals'].each do |interval| -%>
       <interval>
-        <duration><%= @default_duration %></duration>
-        <queries><%= @default_queries %></queries>
-        <errors><%= @default_errors %></errors>
-        <result_rows><%= @default_result_rows %></result_rows>
-        <read_rows><%= @default_read_rows %></read_rows>
-        <execution_time><%= @default_execution_time %></execution_time>
+      <%- interval.each_pair do |key, value| -%>
+        <<%= key %>><%= parse_value(value) %></<%= key %>>
+      <%- end -%>
       </interval>
-    </default>
+    <%- end -%>
+    <%= "</#{quota}>" %>
+  <%- end -%>
   </quotas>
+<%- end -%>
 </yandex>

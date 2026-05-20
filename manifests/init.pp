@@ -3,14 +3,6 @@
 # @param conf_dir path to configuration directory
 # @param packages package name
 # @param service service name
-# @param default_password_sha256 default password sha256
-# @param default_password default password
-# @param max_memory_usage maximum memory usage
-# @param use_uncompressed_cache use uncompressed cache
-# @param joined_subquery_requires_alias joined subquery requires alias
-# @param distributed_product_mode distributed product mode
-# @param prefer_localhost_replica prefer localhost replica
-# @param load_balancing load balancing
 # @param log_level log level
 # @param log_file log file
 # @param errorlog_file error log file
@@ -72,37 +64,20 @@
 # @param max_partition_size_to_drop max partition size to drop
 # @param format_schema_path format schema path
 # @param disable_internal_dns_cache disable internal dns cache
-# @param default_networks default networks
-# @param default_profile default profile
-# @param default_quota default quota
-# @param default_allow_databases default allow databases
-# @param default_filter default filter
-# @param default_duration default duration
-# @param default_queries default queries
-# @param default_errors default errors
-# @param default_result_rows default result rows
-# @param default_read_rows default read rows
-# @param default_execution_time default execution time
 # @param users users
 # @param zookeeper_servers zookeeper servers
 # @param zookeeper_port zookeeper port
 # @param top_level_domains_path top level domains path
 # @param public_suffix_list_name public suffix list name
 # @param roles a hash of roles and the grants provided
+# @param profiles a hash of profiles and their settings
+# @param quotas a hash of quotas and their settings
 # @param enable_named_columns_in_function_tuple enable named columns in function tuple
 #
 class clickhouse (
   Stdlib::Unixpath                                $conf_dir = '/etc/clickhouse-server',
   Array[String[1]]                                $packages = ['clickhouse-server', 'clickhouse-odbc-bridge'],
   String[1]                                       $service = 'clickhouse-server',
-  Optional[Pattern[/(?i:[a-f\d]+)/]]              $default_password_sha256 = undef,
-  String                                          $default_password = '', # lint:ignore:params_empty_string_assignment
-  Integer[0]                                      $max_memory_usage = 10000000000,
-  Boolean                                         $use_uncompressed_cache = false,
-  Boolean                                         $joined_subquery_requires_alias = true,
-  Enum['deny','local','global','allow']           $distributed_product_mode = 'deny',
-  Boolean                                         $prefer_localhost_replica = true,
-  Clickhouse::Load_balance                        $load_balancing = 'random',
   Clickhouse::Log_level                           $log_level = 'trace',
   Stdlib::Unixpath                                $log_file = '/var/log/clickhouse-server/clickhouse-server.log',
   Stdlib::Unixpath                                $errorlog_file = '/var/log/clickhouse-server/clickhouse-server.err.log',
@@ -163,17 +138,6 @@ class clickhouse (
   Optional[Integer]                               $max_partition_size_to_drop = undef,
   Stdlib::Unixpath                                $format_schema_path = '/var/lib/clickhouse/format_schemas',
   Boolean                                         $disable_internal_dns_cache = false,
-  Array[String[1]]                                $default_networks = ['::/0'],
-  String[1]                                       $default_profile = 'default',
-  String[1]                                       $default_quota = 'default',
-  Optional[Array[String[1]]]                      $default_allow_databases = undef,
-  Optional[Hash[String[1],Clickhouse::Db_filter]] $default_filter = undef,
-  Integer[0]                                      $default_duration = 3600,
-  Integer[0]                                      $default_queries = 0,
-  Integer[0]                                      $default_errors = 0,
-  Integer[0]                                      $default_result_rows = 0,
-  Integer[0]                                      $default_read_rows = 0,
-  Integer[0]                                      $default_execution_time = 0,
   Hash[String[1], Clickhouse::User]               $users = {},
   Optional[Array[Stdlib::IP::Address]]            $zookeeper_servers = undef,
   Integer[0]                                      $zookeeper_port = 2181,
@@ -181,6 +145,8 @@ class clickhouse (
   String[1]                                       $public_suffix_list_name = 'public_suffix_list.dat',
   Boolean                                         $enable_named_columns_in_function_tuple = false,
   Hash[String[1], Array[String[1]]]               $roles = {},
+  Hash[String[1], Clickhouse::Profile]            $profiles = {},
+  Hash[String[1], Clickhouse::Quota]              $quotas = {},
   Hash[String[1], Clickhouse::Remote]             $remotes = {
     'test_shard_localhost' => [{ 'replicas' => [{ 'host' => 'localhost', 'port' => 9000, },], },],
     'test_shard_localhost_secure' => [{ 'replicas' => [{ 'host'   => 'localhost', 'port'   => 9000, 'secure' => true, },], },],
@@ -198,11 +164,12 @@ class clickhouse (
     }
   }
   file { "${conf_dir}/users.xml":
-    ensure    => file,
-    content   => template('clickhouse/etc/users.xml.erb'),
-    show_diff => false,
-    notify    => Service[$service],
-    require   => Package[$packages],
+    ensure  => file,
+    content => template('clickhouse/etc/users.xml.erb'),
+    # TODO: add back in after testing
+    # show_diff => false,
+    notify  => Service[$service],
+    require => Package[$packages],
   }
   file { "${conf_dir}/config.xml":
     ensure  => file,

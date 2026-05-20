@@ -1,0 +1,28 @@
+# @summary Type definition for Clickhouse::Profile
+type Clickhouse::Profile = Struct[
+  {
+    'enable_named_columns_in_function_tuple' => Optional[Boolean],
+    'use_uncompressed_cache' => Optional[Boolean],
+    'load_balancing' => Optional[Clickhouse::Load_balance],
+    'joined_subquery_requires_alias' => Optional[Boolean],
+    'distributed_product_mode' => Optional[Enum['deny','local','global','allow']],
+    'prefer_localhost_replica' => Optional[Boolean],
+    'readonly' => Optional[Integer[1,2]],
+    'allow_ddl' => Optional[Boolean],
+    'max_memory_usage' => Optional[Integer],
+    'max_threads' => Optional[Integer],
+    'max_execution_time' => Optional[Integer],
+    'max_result_rows' => Optional[Integer],
+    'max_result_bytes' => Optional[Integer],
+    'max_rows_to_read' => Optional[Integer],
+    'max_bytes_to_read' => Optional[Integer],
+    'max_insert_block_size' => Optional[Integer],
+    'join_use_nulls' => Optional[Boolean],
+    'log_queries' => Optional[Boolean],
+    'force_index_by_date' => Optional[Boolean],
+    'max_ast_depth' => Optional[Integer],
+    'max_concurrent_queries_for_user' => Optional[Integer],
+    'input_format_allow_errors_num' => Optional[Integer],
+    'output_format_json_quote_64bit_integers' => Optional[Boolean],
+  }
+]
