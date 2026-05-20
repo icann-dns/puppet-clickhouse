@@ -1,3 +1,4 @@
+# @summary Type definition for Clickhouse::Profile
 type Clickhouse::Profile = Struct[
   {
     'enable_named_columns_in_function_tuple' => Optional[Boolean],

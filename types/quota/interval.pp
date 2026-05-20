@@ -1,3 +1,4 @@
+# @summary Type definition for Clickhouse::Quota::Interval
 type Clickhouse::Quota::Interval = Struct[
   {
     'duration' => Integer[1],

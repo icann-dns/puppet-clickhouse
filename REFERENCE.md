@@ -13,6 +13,9 @@
 * [`Clickhouse::Db_filter`](#Clickhouse--Db_filter): Type definition for Clickhouse::Db_filter
 * [`Clickhouse::Load_balance`](#Clickhouse--Load_balance): Type definition for Clickhouse::Load_balance
 * [`Clickhouse::Log_level`](#Clickhouse--Log_level): Type definition for Clickhouse::Log_level
+* [`Clickhouse::Profile`](#Clickhouse--Profile): Type definition for Clickhouse::Profile
+* [`Clickhouse::Quota`](#Clickhouse--Quota): Type definition for Clickhouse::Quota
+* [`Clickhouse::Quota::Interval`](#Clickhouse--Quota--Interval): Type definition for Clickhouse::Quota::Interval
 * [`Clickhouse::Remote`](#Clickhouse--Remote): Type definition for Clickhouse::Remote
 * [`Clickhouse::Replica`](#Clickhouse--Replica): Type definition for Clickhouse::Replica
 * [`Clickhouse::Shard`](#Clickhouse--Shard): Type definition for Clickhouse::Shard
@@ -32,14 +35,6 @@ The following parameters are available in the `clickhouse` class:
 * [`conf_dir`](#-clickhouse--conf_dir)
 * [`packages`](#-clickhouse--packages)
 * [`service`](#-clickhouse--service)
-* [`default_password_sha256`](#-clickhouse--default_password_sha256)
-* [`default_password`](#-clickhouse--default_password)
-* [`max_memory_usage`](#-clickhouse--max_memory_usage)
-* [`use_uncompressed_cache`](#-clickhouse--use_uncompressed_cache)
-* [`joined_subquery_requires_alias`](#-clickhouse--joined_subquery_requires_alias)
-* [`distributed_product_mode`](#-clickhouse--distributed_product_mode)
-* [`prefer_localhost_replica`](#-clickhouse--prefer_localhost_replica)
-* [`load_balancing`](#-clickhouse--load_balancing)
 * [`log_level`](#-clickhouse--log_level)
 * [`log_file`](#-clickhouse--log_file)
 * [`errorlog_file`](#-clickhouse--errorlog_file)
@@ -101,23 +96,14 @@ The following parameters are available in the `clickhouse` class:
 * [`max_partition_size_to_drop`](#-clickhouse--max_partition_size_to_drop)
 * [`format_schema_path`](#-clickhouse--format_schema_path)
 * [`disable_internal_dns_cache`](#-clickhouse--disable_internal_dns_cache)
-* [`default_networks`](#-clickhouse--default_networks)
-* [`default_profile`](#-clickhouse--default_profile)
-* [`default_quota`](#-clickhouse--default_quota)
-* [`default_allow_databases`](#-clickhouse--default_allow_databases)
-* [`default_filter`](#-clickhouse--default_filter)
-* [`default_duration`](#-clickhouse--default_duration)
-* [`default_queries`](#-clickhouse--default_queries)
-* [`default_errors`](#-clickhouse--default_errors)
-* [`default_result_rows`](#-clickhouse--default_result_rows)
-* [`default_read_rows`](#-clickhouse--default_read_rows)
-* [`default_execution_time`](#-clickhouse--default_execution_time)
 * [`users`](#-clickhouse--users)
 * [`zookeeper_servers`](#-clickhouse--zookeeper_servers)
 * [`zookeeper_port`](#-clickhouse--zookeeper_port)
 * [`top_level_domains_path`](#-clickhouse--top_level_domains_path)
 * [`public_suffix_list_name`](#-clickhouse--public_suffix_list_name)
 * [`roles`](#-clickhouse--roles)
+* [`profiles`](#-clickhouse--profiles)
+* [`quotas`](#-clickhouse--quotas)
 * [`enable_named_columns_in_function_tuple`](#-clickhouse--enable_named_columns_in_function_tuple)
 
 ##### <a name="-clickhouse--conf_dir"></a>`conf_dir`
@@ -143,70 +129,6 @@ Data type: `String[1]`
 service name
 
 Default value: `'clickhouse-server'`
-
-##### <a name="-clickhouse--default_password_sha256"></a>`default_password_sha256`
-
-Data type: `Optional[Pattern[/(?i:[a-f\d]+)/]]`
-
-default password sha256
-
-Default value: `undef`
-
-##### <a name="-clickhouse--default_password"></a>`default_password`
-
-Data type: `String`
-
-default password
-
-Default value: `''`
-
-##### <a name="-clickhouse--max_memory_usage"></a>`max_memory_usage`
-
-Data type: `Integer[0]`
-
-maximum memory usage
-
-Default value: `10000000000`
-
-##### <a name="-clickhouse--use_uncompressed_cache"></a>`use_uncompressed_cache`
-
-Data type: `Boolean`
-
-use uncompressed cache
-
-Default value: `false`
-
-##### <a name="-clickhouse--joined_subquery_requires_alias"></a>`joined_subquery_requires_alias`
-
-Data type: `Boolean`
-
-joined subquery requires alias
-
-Default value: `true`
-
-##### <a name="-clickhouse--distributed_product_mode"></a>`distributed_product_mode`
-
-Data type: `Enum['deny','local','global','allow']`
-
-distributed product mode
-
-Default value: `'deny'`
-
-##### <a name="-clickhouse--prefer_localhost_replica"></a>`prefer_localhost_replica`
-
-Data type: `Boolean`
-
-prefer localhost replica
-
-Default value: `true`
-
-##### <a name="-clickhouse--load_balancing"></a>`load_balancing`
-
-Data type: `Clickhouse::Load_balance`
-
-load balancing
-
-Default value: `'random'`
 
 ##### <a name="-clickhouse--log_level"></a>`log_level`
 
@@ -703,94 +625,6 @@ disable internal dns cache
 
 Default value: `false`
 
-##### <a name="-clickhouse--default_networks"></a>`default_networks`
-
-Data type: `Array[String[1]]`
-
-default networks
-
-Default value: `['::/0']`
-
-##### <a name="-clickhouse--default_profile"></a>`default_profile`
-
-Data type: `String[1]`
-
-default profile
-
-Default value: `'default'`
-
-##### <a name="-clickhouse--default_quota"></a>`default_quota`
-
-Data type: `String[1]`
-
-default quota
-
-Default value: `'default'`
-
-##### <a name="-clickhouse--default_allow_databases"></a>`default_allow_databases`
-
-Data type: `Optional[Array[String[1]]]`
-
-default allow databases
-
-Default value: `undef`
-
-##### <a name="-clickhouse--default_filter"></a>`default_filter`
-
-Data type: `Optional[Hash[String[1],Clickhouse::Db_filter]]`
-
-default filter
-
-Default value: `undef`
-
-##### <a name="-clickhouse--default_duration"></a>`default_duration`
-
-Data type: `Integer[0]`
-
-default duration
-
-Default value: `3600`
-
-##### <a name="-clickhouse--default_queries"></a>`default_queries`
-
-Data type: `Integer[0]`
-
-default queries
-
-Default value: `0`
-
-##### <a name="-clickhouse--default_errors"></a>`default_errors`
-
-Data type: `Integer[0]`
-
-default errors
-
-Default value: `0`
-
-##### <a name="-clickhouse--default_result_rows"></a>`default_result_rows`
-
-Data type: `Integer[0]`
-
-default result rows
-
-Default value: `0`
-
-##### <a name="-clickhouse--default_read_rows"></a>`default_read_rows`
-
-Data type: `Integer[0]`
-
-default read rows
-
-Default value: `0`
-
-##### <a name="-clickhouse--default_execution_time"></a>`default_execution_time`
-
-Data type: `Integer[0]`
-
-default execution time
-
-Default value: `0`
-
 ##### <a name="-clickhouse--users"></a>`users`
 
 Data type: `Hash[String[1], Clickhouse::User]`
@@ -839,6 +673,22 @@ a hash of roles and the grants provided
 
 Default value: `{}`
 
+##### <a name="-clickhouse--profiles"></a>`profiles`
+
+Data type: `Hash[String[1], Clickhouse::Profile]`
+
+a hash of profiles and their settings
+
+Default value: `{}`
+
+##### <a name="-clickhouse--quotas"></a>`quotas`
+
+Data type: `Hash[String[1], Clickhouse::Quota]`
+
+a hash of quotas and their settings
+
+Default value: `{}`
+
 ##### <a name="-clickhouse--enable_named_columns_in_function_tuple"></a>`enable_named_columns_in_function_tuple`
 
 Data type: `Boolean`
@@ -866,6 +716,76 @@ Alias of `Enum['random', 'nearest_hostname', 'in_order']`
 Type definition for Clickhouse::Log_level
 
 Alias of `Enum['none', 'fatal', 'critical', 'error', 'warning', 'notice', 'information', 'debug', 'trace']`
+
+### <a name="Clickhouse--Profile"></a>`Clickhouse::Profile`
+
+Type definition for Clickhouse::Profile
+
+Alias of
+
+```puppet
+Struct[{
+    'enable_named_columns_in_function_tuple' => Optional[Boolean],
+    'use_uncompressed_cache' => Optional[Boolean],
+    'load_balancing' => Optional[Clickhouse::Load_balance],
+    'joined_subquery_requires_alias' => Optional[Boolean],
+    'distributed_product_mode' => Optional[Enum['deny','local','global','allow']],
+    'prefer_localhost_replica' => Optional[Boolean],
+    'readonly' => Optional[Integer[1,2]],
+    'allow_ddl' => Optional[Boolean],
+    'max_memory_usage' => Optional[Integer],
+    'max_threads' => Optional[Integer],
+    'max_execution_time' => Optional[Integer],
+    'max_result_rows' => Optional[Integer],
+    'max_result_bytes' => Optional[Integer],
+    'max_rows_to_read' => Optional[Integer],
+    'max_bytes_to_read' => Optional[Integer],
+    'max_insert_block_size' => Optional[Integer],
+    'join_use_nulls' => Optional[Boolean],
+    'log_queries' => Optional[Boolean],
+    'force_index_by_date' => Optional[Boolean],
+    'max_ast_depth' => Optional[Integer],
+    'max_concurrent_queries_for_user' => Optional[Integer],
+    'input_format_allow_errors_num' => Optional[Integer],
+    'output_format_json_quote_64bit_integers' => Optional[Boolean],
+  }]
+```
+
+### <a name="Clickhouse--Quota"></a>`Clickhouse::Quota`
+
+Type definition for Clickhouse::Quota
+
+Alias of
+
+```puppet
+Struct[{
+    'intervals' => Array[Clickhouse::Quota::Interval],
+    'keyed' => Optional[Enum['client_key', 'ip_address']],
+  }]
+```
+
+### <a name="Clickhouse--Quota--Interval"></a>`Clickhouse::Quota::Interval`
+
+Type definition for Clickhouse::Quota::Interval
+
+Alias of
+
+```puppet
+Struct[{
+    'duration' => Integer[1],
+    'queries' => Optional[Integer[0]],
+    'queries_selects' => Optional[Integer[0]],
+    'queries_inserts' => Optional[Integer[0]],
+    'errors' => Optional[Integer[0]],
+    'result_rows' => Optional[Integer[0]],
+    'result_bytes' => Optional[Integer[0]],
+    'read_rows' => Optional[Integer[0]],
+    'read_bytes' => Optional[Integer[0]],
+    'execution_time' => Optional[Integer[0]],
+    'written_bytes' => Optional[Integer[0]],
+    'failed_sequential_authentications' => Optional[Integer[0]]
+  }]
+```
 
 ### <a name="Clickhouse--Remote"></a>`Clickhouse::Remote`
 
@@ -924,13 +844,14 @@ Alias of
 
 ```puppet
 Struct[{
-  password => Optional[String[1]],
-  networks => Array[String[1]],
-  profile  => Optional[String[1]],
-  quota    => Optional[String[1]],
-  allow_db => Optional[Array[String[1]]],
-  access_management => Optional[Boolean],
-  roles => Optional[Array[String[1]]],
-}]
+    password          => Optional[String[1]],
+    networks          => Array[String[1]],
+    profile           => Optional[String[1]],
+    quota             => Optional[String[1]],
+    allow_db          => Optional[Array[String[1]]],
+    access_management => Optional[Boolean],
+    roles             => Optional[Array[String[1]]],
+    db_filters        => Optional[Hash[String[1], Hash[String[1], String[1]]]],
+  }]
 ```
 
