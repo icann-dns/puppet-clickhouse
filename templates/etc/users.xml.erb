@@ -97,8 +97,21 @@
         <database><%= db %></database>
       <%- end -%>
       </allow_databases>
-<%- end -%>
-    <%= "</#{user}>" %>
+  <%- end -%>
+  <%- if config['db_filters'] -%>
+      <databases>
+    <%- config['db_filters'].each_pair do |database, databasefilter| -%>
+        <<%= database %>>
+      <%- databasefilter.each_pair do |table, tablefilter| -%>
+          <<%= table %>>
+            <filter><%= tablefilter %></filter>
+          </<%= table %>>
+      <%- end -%>
+        </<%= database %>>
+    <%- end -%>
+      </databases>
+  <%- end -%>
+    </<%= user %>>
 <%- end -%>
   </users>
 <%- unless @quotas.empty? -%>
