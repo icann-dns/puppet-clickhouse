@@ -1,6 +1,7 @@
 # @summary Type definition for Clickhouse::Profile
 type Clickhouse::Profile = Struct[
   {
+    'profile' => Optional[String[1]],
     'enable_named_columns_in_function_tuple' => Optional[Boolean],
     'use_uncompressed_cache' => Optional[Boolean],
     'load_balancing' => Optional[Clickhouse::Load_balance],
