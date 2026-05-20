@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-05-20 0.6.1
+* Allow nested profiles
+
 ## 2026-05-20 0.6.0
 * Add support for profiles
 * Add support for quotas
