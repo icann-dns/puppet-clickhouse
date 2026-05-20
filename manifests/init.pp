@@ -71,12 +71,6 @@
 # @param default_quota default quota
 # @param default_allow_databases default allow databases
 # @param default_filter default filter
-# @param default_duration default duration
-# @param default_queries default queries
-# @param default_errors default errors
-# @param default_result_rows default result rows
-# @param default_read_rows default read rows
-# @param default_execution_time default execution time
 # @param users users
 # @param zookeeper_servers zookeeper servers
 # @param zookeeper_port zookeeper port
@@ -84,6 +78,7 @@
 # @param public_suffix_list_name public suffix list name
 # @param roles a hash of roles and the grants provided
 # @param profiles a hash of profiles and their settings
+# @param quotas a hash of quotas and their settings
 # @param enable_named_columns_in_function_tuple enable named columns in function tuple
 #
 class clickhouse (
@@ -157,12 +152,6 @@ class clickhouse (
   String[1]                                       $default_quota = 'default',
   Optional[Array[String[1]]]                      $default_allow_databases = undef,
   Optional[Hash[String[1],Clickhouse::Db_filter]] $default_filter = undef,
-  Integer[0]                                      $default_duration = 3600,
-  Integer[0]                                      $default_queries = 0,
-  Integer[0]                                      $default_errors = 0,
-  Integer[0]                                      $default_result_rows = 0,
-  Integer[0]                                      $default_read_rows = 0,
-  Integer[0]                                      $default_execution_time = 0,
   Hash[String[1], Clickhouse::User]               $users = {},
   Optional[Array[Stdlib::IP::Address]]            $zookeeper_servers = undef,
   Integer[0]                                      $zookeeper_port = 2181,
@@ -171,6 +160,7 @@ class clickhouse (
   Boolean                                         $enable_named_columns_in_function_tuple = false,
   Hash[String[1], Array[String[1]]]               $roles = {},
   Hash[String[1], Clickhouse::Profile]            $profiles = {},
+  Hash[String[1], Clickhouse::Quota]              $quotas = {},
   Hash[String[1], Clickhouse::Remote]             $remotes = {
     'test_shard_localhost' => [{ 'replicas' => [{ 'host' => 'localhost', 'port' => 9000, },], },],
     'test_shard_localhost_secure' => [{ 'replicas' => [{ 'host'   => 'localhost', 'port'   => 9000, 'secure' => true, },], },],

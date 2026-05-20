@@ -101,16 +101,24 @@
     <%= "</#{user}>" %>
 <%- end -%>
   </users>
+<%- unless @quotas.empty? -%>
   <quotas>
-    <default>
+  <%- @quotas.each_pair do |quota, config| -%>
+    <%= "<#{quota}>" %>
+    <%- if config.fetch('keyed', nil) == 'client_key' -%>
+      <keyed />
+    <%- elsif config.fetch('keyed', nil) == 'ip_address' -%>
+      <keyed_by_ip />
+    <%- end -%>
+    <%- config['intervals'].each do |interval| -%>
       <interval>
-        <duration><%= @default_duration %></duration>
-        <queries><%= @default_queries %></queries>
-        <errors><%= @default_errors %></errors>
-        <result_rows><%= @default_result_rows %></result_rows>
-        <read_rows><%= @default_read_rows %></read_rows>
-        <execution_time><%= @default_execution_time %></execution_time>
+      <%- interval.each_pair do |key, value| -%>
+        <<%= key %>><%= parse_value(value) %></<%= key %>>
+      <%- end -%>
       </interval>
-    </default>
+    <%- end -%>
+    <%= "</#{quota}>" %>
+  <%- end -%>
   </quotas>
+<%- end -%>
 </yandex>
