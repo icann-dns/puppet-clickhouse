@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-05-20 0.6.0
+* Add support for profiles
+* Add support for quotas
+* drop the default user
+
 ## 2026-05-19 0.5.0
 * Add support for roles
 * some minor fixes
