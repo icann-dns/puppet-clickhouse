@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-05-20 0.6.2
+* Add additional profile settings
+
 ## 2026-05-20 0.6.1
 * Allow nested profiles
 
