@@ -28,6 +28,6 @@ type Clickhouse::Profile = Struct[
     'output_format_json_quote_64bit_integers' => Optional[Boolean],
     'allow_experimental_analyzer'             => Optional[Boolean],
     'group_by_overflow_mode'                  => Optional[Enum['any']],
-    'join_overflow_mode'                      -> Optional[Enum['throw', 'break']],
+    'join_overflow_mode'                      => Optional[Enum['throw', 'break']],
   }
 ]
